@@ -13,6 +13,7 @@ typedef struct s_command
     char        **args;
     t_redirect   *redirects;
     int         redirect_count;
+    int         pipe_status;
     struct s_command    *next; //next comando for pipe
 }   t_command;
 
