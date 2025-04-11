@@ -1,5 +1,5 @@
 #include "../libs/minishell.h"
-#include "../libs/my_lib.h"
+#include "../mylib/libft.h"
 #include "../libs/structs.h"
 //gcc minishell.c -lreadline -lhistory
 int ft_strcmp(const char *s1, const char *s2)
@@ -29,13 +29,13 @@ int main(int ac, char **av)
     }
     while (1)
     {
-        input = readline("\033[1;35m~minishell$>\033[0m ");
+        input = readline("\033[1;35m~sush$>\033[0m ");
         if (!input || ft_strcmp(input, "exit") == 0)
              break;
         if (*input)
             add_history(input);
         root = parsing(input);
-        printf ("%s\n", input);
+        //printf ("%s\n", input);
         free (input);
     }
     return (0);

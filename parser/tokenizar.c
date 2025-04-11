@@ -1,5 +1,5 @@
 #include "../libs/minishell.h"
-#include "../libs/my_lib.h"
+#include "../mylib/libft.h"
 #include "../libs/structs.h"
 
 
