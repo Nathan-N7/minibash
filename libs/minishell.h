@@ -8,5 +8,6 @@
 #include "structs.h"
 
 t_command    *parsing(char *input);
+char    **tokenize(char *input);
 
 #endif

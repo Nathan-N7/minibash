@@ -35,7 +35,6 @@ int main(int ac, char **av)
         if (*input)
             add_history(input);
         root = parsing(input);
-        //printf ("%s\n", input);
         free (input);
     }
     return (0);

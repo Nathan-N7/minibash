@@ -1,7 +1,7 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-typedef enum    s_tokens
+typedef enum    s_tk_type
 {
     PIPE,
     WORD,
@@ -9,11 +9,11 @@ typedef enum    s_tokens
     REDIR_OUT, //>
     APPEND,  //>>
     HEREDOC //<<
-}   t_tokens;
+}   t_tk_type;
 
 typedef struct s_redirect
 {
-    char    *type;
+    t_tk_type type;
     char    *filename;
 }   t_redirect;
 
@@ -25,5 +25,12 @@ typedef struct s_command
     int         redirect_count;
     struct s_command    *next;
 }   t_command;
+
+typedef struct  s_token
+{
+    t_tk_type       type;
+    char            *value;
+    struct s_token  *next;
+}   t_token;
 
 #endif
