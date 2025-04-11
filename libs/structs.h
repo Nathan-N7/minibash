@@ -4,7 +4,11 @@
 typedef enum    s_tokens
 {
     PIPE,
-    
+    WORD,
+    REDIR_IN,  //<
+    REDIR_OUT, //>
+    APPEND,  //>>
+    HEREDOC //<<
 }   t_tokens;
 
 typedef struct s_redirect
