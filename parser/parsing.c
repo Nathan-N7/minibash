@@ -32,14 +32,19 @@ int verify_aspas(char   *r)
 t_command    *parsing(char *input)
 {   
     char        *r;
-    t_command   *token;
+    t_token   *tokens;
 
     r = ft_strtrim(input, " \t\n\v\r\f");
     if (!r)
         return (free(r), NULL);
     if (verify_aspas(r) % 2 != 0)
         return (printf("error\n"), NULL);
-    token = tokenize(r);
-    printf("%s\n", r);
+    tokens = tokenize(r);
+    t_token *tmp = tokens;
+    while (tmp)
+    {
+        printf("TOKEN: type=%d, value=%s\n", tmp->type, tmp->value);
+        tmp = tmp->next;
+    }
     return (NULL);
 }

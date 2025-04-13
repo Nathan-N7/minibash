@@ -3,8 +3,8 @@
 
 typedef enum    s_tk_type
 {
-    PIPE,
     WORD,
+    PIPE,
     REDIR_IN,  //<
     REDIR_OUT, //>
     APPEND,  //>>

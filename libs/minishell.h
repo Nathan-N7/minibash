@@ -8,6 +8,8 @@
 #include "structs.h"
 
 t_command    *parsing(char *input);
-char    **tokenize(char *input);
+t_token	*tokenize(char *input);
+int	ft_isspace(char c);
+char *strip_quotes(char *str);
 
 #endif

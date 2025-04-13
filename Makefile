@@ -2,7 +2,7 @@ NAME = minishell
 
 FLAGS = -Wall -Werror -Wextra -Ilibs
 
-SOURCES = main/minishell.c parser/parsing.c
+SOURCES = main/minishell.c parser/parsing.c parser/tokenizar.c utils/utils_toke.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
