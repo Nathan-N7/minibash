@@ -1,5 +1,5 @@
 #include "../libs/minishell.h"
-#include "../mylib/libft.h"
+#include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
 int verify_aspas(char   *r)

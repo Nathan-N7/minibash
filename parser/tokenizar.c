@@ -1,5 +1,5 @@
 #include "../libs/minishell.h"
-#include "../mylib/libft.h"
+#include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
 t_token	*new_token(t_tk_type type,	char *value)

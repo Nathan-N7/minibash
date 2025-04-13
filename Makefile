@@ -14,12 +14,12 @@ OBJECTS = \
 	objects/tokenizar.o \
 	objects/utils_toke.o
 
-LIBFT = mylib/libft.a
+LIBFT = my_lib/libft.a
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJECTS)
-	@cc $(FLAGS) -o $(NAME) $(OBJECTS) -L mylib -lft -lreadline -lhistory
+	@cc $(FLAGS) -o $(NAME) $(OBJECTS) -L my_lib -lft -lreadline -lhistory
 
 # Compilação dos objetos manual, sem % e com mkdir
 objects/minishell.o:
@@ -39,15 +39,15 @@ objects/utils_toke.o:
 	@cc $(FLAGS) -c utils/utils_toke.c -o objects/utils_toke.o
 
 $(LIBFT):
-	@make -C mylib
+	@make -C my_lib
 
 clean:
 	@rm -f $(OBJECTS)
-	@make -C mylib clean
+	@make -C my_lib clean
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C mylib fclean
+	@make -C my_lib fclean
 
 re: fclean all
 
