@@ -18,3 +18,16 @@ char *strip_quotes(char *str)
 		return ft_strndup(str + 1, len - 2);
 	return ft_strdup(str);
 }
+
+void	free_tokens(t_token *head)
+{
+	t_token *tmp;
+
+	while (head)
+	{
+		tmp = head->next;
+		free(head->value);
+		free(head);
+		head = tmp;
+	}
+}

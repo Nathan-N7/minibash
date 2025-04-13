@@ -66,16 +66,18 @@ t_token	*tokenize(char *input)
 		}
 		else
 		{
-			char buffer[4096];
-			int buf_i = 0;
+			char	buffer[4096];
+			char	quote;
+			int		buf_i;
 
+			buf_i = 0;
 			if (input[i] == '\'' || input[i] == '"')
 			{
-				char quote = input[i++];
+				quote = input[i++];
 				while (input[i] && input[i] != quote)
 					buffer[buf_i++] = input[i++];
 				if (input[i] == quote)
-					i++; // pula a aspa de fechamento
+					i++;
 			}
 			else
 			{

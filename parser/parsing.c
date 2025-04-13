@@ -46,5 +46,7 @@ t_command    *parsing(char *input)
         printf("TOKEN: type=%d, value=%s\n", tmp->type, tmp->value);
         tmp = tmp->next;
     }
+    free(r);
+    free_tokens(tokens);
     return (NULL);
 }
