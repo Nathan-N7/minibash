@@ -6,13 +6,16 @@ SOURCES = \
 	main/minishell.c \
 	parser/parsing.c \
 	parser/tokenizar.c \
-	utils/utils_toke.c
+	utils/utils_toke.c \
+	utils/utils_parse.c \ 
+
 
 OBJECTS = \
 	objects/minishell.o \
 	objects/parsing.o \
 	objects/tokenizar.o \
-	objects/utils_toke.o
+	objects/utils_toke.o \
+	objects/utils_parse.o
 
 LIBFT = my_lib/libft.a
 
@@ -37,6 +40,10 @@ objects/tokenizar.o:
 objects/utils_toke.o:
 	@mkdir -p objects
 	@cc $(FLAGS) -c utils/utils_toke.c -o objects/utils_toke.o
+
+objects/utils_parse.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c utils/utils_parse.c -o objects/utils_parse.o
 
 $(LIBFT):
 	@make -C my_lib
