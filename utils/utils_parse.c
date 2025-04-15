@@ -2,25 +2,25 @@
 #include "../libs/structs.h"
 #include "../my_lib/libft.h"
 
-int verify_quote(char   *r)
+int verify_aspas(char   *r)
 {
     int     i;
-    char    quote;
+    char    aspas;
 
     i = 0;
-    quote = '\0';
+    aspas = '\0';
     while (r[i])
     {
         if (r[i] == '\'' || r[i] == '"')
         {
-            if (quote == '\0')
-                quote = r[i];
-            else if (quote == r[i])
-                quote = '\0';
+            if (aspas == '\0')
+                aspas = r[i];
+            else if (aspas == r[i])
+                aspas = '\0';
         }
         i++;
     }
-    if (quote == '\0')
+    if (aspas == '\0')
         return (1);
     else
         return (0);

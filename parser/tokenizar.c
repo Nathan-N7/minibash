@@ -67,16 +67,16 @@ t_token	*tokenize(char *input)
 		else
 		{
 			char	buffer[4096];
-			char	quote;
+			char	aspas;
 			int		buf_i;
 
 			buf_i = 0;
 			if (input[i] == '\'' || input[i] == '"')
 			{
-				quote = input[i++];
-				while (input[i] && input[i] != quote)
+				aspas = input[i++];
+				while (input[i] && input[i] != aspas)
 					buffer[buf_i++] = input[i++];
-				if (input[i] == quote)
+				if (input[i] == aspas)
 					i++;
 			}
 			else
