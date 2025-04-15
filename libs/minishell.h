@@ -20,5 +20,6 @@ int    print_error(char *msg);
 int handle_word(t_command *cmd, char *v, int *c);
 int handle_redir(t_command *cmd, t_token **tok);
 int handle_pipe(t_command **cmd, int *count);
+void    free_commands(t_command *cmd);
 
 #endif

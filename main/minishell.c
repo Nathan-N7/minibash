@@ -35,8 +35,9 @@ int main(int ac, char **av)
         if (*input)
             add_history(input);
         root = parsing(input);
-        free(root);
+        free_commands(root);
         free (input);
     }
+    rl_clear_history();
     return (0);
 }

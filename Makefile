@@ -7,7 +7,8 @@ SOURCES = \
 	parser/parsing.c \
 	parser/tokenizar.c \
 	utils/utils_toke.c \
-	utils/utils_parse.c \ 
+	utils/utils_ps1.c \
+	utils/utils_ps2.c
 
 
 OBJECTS = \
@@ -15,7 +16,8 @@ OBJECTS = \
 	objects/parsing.o \
 	objects/tokenizar.o \
 	objects/utils_toke.o \
-	objects/utils_parse.o
+	objects/utils_ps1.o	\
+	objects/utils_ps2.o
 
 LIBFT = my_lib/libft.a
 
@@ -41,9 +43,13 @@ objects/utils_toke.o:
 	@mkdir -p objects
 	@cc $(FLAGS) -c utils/utils_toke.c -o objects/utils_toke.o
 
-objects/utils_parse.o:
+objects/utils_ps1.o:
 	@mkdir -p objects
-	@cc $(FLAGS) -c utils/utils_parse.c -o objects/utils_parse.o
+	@cc $(FLAGS) -c utils/utils_ps1.c -o objects/utils_ps1.o
+
+objects/utils_ps2.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c utils/utils_ps2.c -o objects/utils_ps2.o
 
 $(LIBFT):
 	@make -C my_lib
