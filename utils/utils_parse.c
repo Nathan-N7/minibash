@@ -2,31 +2,28 @@
 #include "../libs/structs.h"
 #include "../my_lib/libft.h"
 
-int verify_aspas(char   *r)
+int verify_quote(char   *r)
 {
-    int i;
-    int c;
+    int     i;
+    char    quote;
 
-    i = -1;
-    c = 0;
-    while (r[++i])
+    i = 0;
+    quote = '\0';
+    while (r[i])
     {
-        if (r[i] == '"' && c++)
+        if (r[i] == '\'' || r[i] == '"')
         {
-            while (r[++i] != '"' && r[i])
-                continue ;
-            if (r[i] == '"')
-                c++;
+            if (quote == '\0')
+                quote = r[i];
+            else if (quote == r[i])
+                quote = '\0';
         }
-        else if (r[i] == '\'' && c++)
-        {
-            while (r[++i] != '\'' && r[i])
-                continue ;
-            if (r[i] == '\'')
-                c++;
-        }
+        i++;
     }
-    return (c);
+    if (quote == '\0')
+        return (1);
+    else
+        return (0);
 }
 
 int    print_error(char *msg)
@@ -39,7 +36,7 @@ int handle_word(t_command *cmd, char *v, int *c)
 {
     if (*c + 1 >= MAX_ARGS -1)
         return (print_error("Error: too many arguments"));
-    cmd->args[*c] = ft_strdup(v);
+    cmd->args[*c] = strip_quotes(v);
     (*c)++;
     return (1);
 }

@@ -4,7 +4,7 @@
 
 t_token	*new_token(t_tk_type type,	char *value)
 {
-	t_token	*tok = malloc(sizeof(t_token));
+	t_token	*tok = ft_calloc(1, sizeof(t_token));
 	if (!tok)
 		return (NULL);
 	tok->type = type;

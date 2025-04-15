@@ -94,8 +94,8 @@ t_command    *parsing(char *input)
     r = ft_strtrim(input, " \t\n\v\r\f");
     if (!r)
         return (free(r), NULL);
-    if (verify_aspas(r) % 2 != 0)
-        return (free(r), printf("error\n"), NULL);
+    if (!verify_quote(r))
+        return (free(r), printf("Error Sintax\n"), NULL);
     tokens = tokenize(r);
     //t_token *tmp = tokens;
     /*while (tmp)
