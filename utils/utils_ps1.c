@@ -35,7 +35,7 @@ int    print_error(char *msg)
 int handle_word(t_command *cmd, char *v, int *c)
 {
     if (*c + 1 >= MAX_ARGS -1)
-        return (print_error("Error: too many arguments"));
+        return (write(2, "\033[1;31m🚨 Error: too many arguments\033[0m\n", 39), 0);
     cmd->args[*c] = strip_quotes(v);
     (*c)++;
     return (1);
@@ -44,7 +44,7 @@ int handle_word(t_command *cmd, char *v, int *c)
 int handle_redir(t_command *cmd, t_token **tok)
 {
     if (!(*tok)->next || (*tok)->next->type != WORD)
-        return (print_error("Syntax Error"));
+        return (write(2, "\033[1;31m🚨 Syntax Error: tokenize\033[0m\n", 39), 0);
     if (cmd->redirect_count >= MAX_REDIRS)
         return (print_error("Error"));
     cmd->redirects[cmd->redirect_count].type = (*tok)->type;
@@ -57,7 +57,7 @@ int handle_redir(t_command *cmd, t_token **tok)
 int handle_pipe(t_command **cmd, int *count)
 {
     if (!(*cmd)->args || !(*cmd)->args[0])
-        return (print_error("Syntax Error"));
+        return (0);
     (*cmd)->args[*count] = NULL;
     *cmd = new_command(&(*cmd)->next);
     if (!*cmd)

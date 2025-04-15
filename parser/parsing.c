@@ -80,7 +80,7 @@ t_command   *parse_tokens(t_token *tokens)
         tok = tok->next;
     }
     if (!current || !current->args || !current->args[0])
-        return (printf("error"), NULL);
+        return (NULL);
     current->args[count] = NULL;
     return (head);
 }
@@ -95,7 +95,21 @@ t_command    *parsing(char *input)
     if (!r)
         return (free(r), NULL);
     if (!verify_aspas(r))
-        return (free(r), printf("Error Sintax\n"), NULL);
+    {
+        while (1)
+        {
+            char    *log;
+
+            log = readline("> ");
+            if (!log)
+            {
+                free(log);
+                free(r);
+                exit (0);
+            }
+        }
+       //return (free(r), write(2, "\033[1;31m🚨 Syntax Error\033[0m\n", 29), NULL);
+    }
     tokens = tokenize(r);
     //t_token *tmp = tokens;
     /*while (tmp)
@@ -104,9 +118,7 @@ t_command    *parsing(char *input)
         tmp = tmp->next;
     }*/
     commands = parse_tokens(tokens);
-    if (!commands)
-        printf("retornou NULL\n");
-    else
+    if (commands)
         print_commands(commands);
     free(r);
     free_tokens(tokens);
