@@ -23,7 +23,7 @@ int main(int ac, char **av)
 
     (void)av;
     if (ac != 1)
-        return (printf("error"), 0);
+        return (write(2, "\033[1;31m🚨 Error: initialization failure\033[0m\n", 45), 0);
     while (1)
     {
         input = readline("\033[1;35m~sush$>\033[0m ");
