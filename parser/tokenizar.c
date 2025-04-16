@@ -39,7 +39,12 @@ t_token	*tokenize(char *input)
     {
 		if (ft_isspace(input[i]))
 			i++;
-		if (input[i] == '>' && input[i + 1] ==  '>')
+		if (input[i] == '>' && input[i + 1] == '|')
+		{
+			add_token(&head, new_token(REDIR_OUT, ft_strdup(">|")));
+			i += 2;
+		}
+		else if (input[i] == '>' && input[i + 1] ==  '>')
 		{
 			add_token(&head, new_token(APPEND, ft_strdup(">>")));
 			i += 2;
