@@ -111,8 +111,8 @@ t_command    *parsing(char *input)
        //return (free(r), write(2, "\033[1;31m🚨 Syntax Error\033[0m\n", 29), NULL);
     }
     tokens = tokenize(r);
-    //t_token *tmp = tokens;
-    /*while (tmp)
+    /*t_token *tmp = tokens;
+    while (tmp)
     {
         printf("TOKEN: type=%d, value=%s\n", tmp->type, tmp->value);
         tmp = tmp->next;

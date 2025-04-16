@@ -87,8 +87,11 @@ t_token	*tokenize(char *input)
 					buffer[buf_i++] = input[i++];
 				}
 			}
-			buffer[buf_i] = '\0';
-			add_token(&head, new_token(WORD, ft_strdup(buffer)));
+			if (buf_i)
+			{
+				buffer[buf_i] = '\0';
+				add_token(&head, new_token(WORD, ft_strdup(buffer)));
+			}
 		}
 	}
 	return (head);

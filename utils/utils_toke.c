@@ -15,8 +15,8 @@ char *strip_quotes(char *str)
 	while (str[len])
 		len++;
 	if ((str[0] == '"' || str[0] == '\'') && str[len - 1] == str[0])
-		return ft_strndup(str + 1, len - 2);
-	return ft_strdup(str);
+		return (ft_strndup(str + 1, len - 2));
+	return (ft_strdup(str));
 }
 
 void	free_tokens(t_token *head)
