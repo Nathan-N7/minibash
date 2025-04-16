@@ -23,6 +23,23 @@ void	print_commands(t_command *cmds)
 	}
 }
 
+int init_redir(t_command *cmd)
+{
+    int i;
+
+    if (cmd->redirect_count == 0)
+        return (0);
+    i = 0;
+    while (i < cmd->redirect_count)
+    {
+        if (cmd->redirects[i].type != REDIR_OUT && cmd->redirects[i].type != APPEND)
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+
 t_command   *new_command(t_command  **head)
 {
     t_command   *new;
@@ -79,8 +96,8 @@ t_command   *parse_tokens(t_token *tokens)
             return (NULL);
         tok = tok->next;
     }
-    if (!current || !current->args || !current->args[0])
-        return (NULL);
+    if (!current || (!current->args[0] && !init_redir(current)))
+        return (write(2, "\033[1;31m🚨 Syntax Error: tokenize\033[0m\n", 39), NULL);
     current->args[count] = NULL;
     return (head);
 }

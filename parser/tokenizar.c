@@ -44,6 +44,11 @@ t_token	*tokenize(char *input)
 			add_token(&head, new_token(REDIR_OUT, ft_strdup(">|")));
 			i += 2;
 		}
+		else if (input[i] == '>' && input[i + 1] == '>' && input[i + 2] == '|')
+		{
+			add_token(&head, new_token(APPEND, ft_strdup(">>")));
+			i += 3;
+		}
 		else if (input[i] == '>' && input[i + 1] ==  '>')
 		{
 			add_token(&head, new_token(APPEND, ft_strdup(">>")));
@@ -61,7 +66,7 @@ t_token	*tokenize(char *input)
 		}
 		else if (input[i] == '<')
 		{
-			add_token(&head, new_token(REDIR_OUT, ft_strdup("<")));
+			add_token(&head, new_token(REDIR_IN, ft_strdup("<")));
 			i++;
 		}
 		else if (input[i] == '|')
