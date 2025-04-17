@@ -1,7 +1,7 @@
 #include "../libs/minishell.h"
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
-//gcc minishell.c -lreadline -lhistory
+
 int ft_strcmp(const char *s1, const char *s2)
 {
 	unsigned int	i;
