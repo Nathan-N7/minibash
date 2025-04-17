@@ -25,7 +25,7 @@ typedef enum    s_builtins
 typedef enum    s_cmd
 {
     MKDIR,
-    ETC...
+    ETC,
 }   t_cmd;
 
 typedef struct s_redirect
