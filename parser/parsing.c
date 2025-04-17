@@ -7,17 +7,23 @@ void	print_commands(t_command *cmds)
 	int	i = 1;
 	int	j;
 
+    j = 0;
 	while (cmds)
 	{
 		printf("📦 Command %d:\n", i++);
-		for (j = 0; cmds->args && cmds->args[j]; j++)
+		while (cmds->args && cmds->args[j])
+        {
 			printf("  🔹 Arg[%d]: %s\n", j, cmds->args[j]);
-		for (j = 0; j < cmds->redirect_count; j++)
+            j++;
+        }
+        j = 0;
+		while (j < cmds->redirect_count)
 		{
 			const char *redir_type[] = { "WORD", "PIPE", "<", ">", ">>", "<<" };
 			printf("  🔁 Redirect: type=%s, file=%s\n",
 				redir_type[cmds->redirects[j].type],
 				cmds->redirects[j].filename);
+            j++;
 		}
 		cmds = cmds->next;
 	}
@@ -124,6 +130,7 @@ t_command    *parsing(char *input)
                 free(r);
                 exit (0);
             }
+            free(log);
         }
        //return (free(r), write(2, "\033[1;31m🚨 Syntax Error\033[0m\n", 29), NULL);
     }

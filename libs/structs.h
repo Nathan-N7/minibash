@@ -11,22 +11,11 @@ typedef enum    s_tk_type
     HEREDOC //<<
 }   t_tk_type;
 
-typedef enum    s_builtins
+typedef enum    s_cmd_type
 {
-    ECHO,
-    CD,
-    PWD,
-    EXPORT,
-    UNSET,
-    ENV,
-    EXIT
-}   t_builtins;
-
-typedef enum    s_cmd
-{
-    MKDIR,
-    ETC,
-}   t_cmd;
+    IS_BUILTIN,
+    IS_COMAND,
+}   t_cmd_type;
 
 typedef struct s_redirect
 {
@@ -34,9 +23,16 @@ typedef struct s_redirect
     char    *filename;
 }   t_redirect;
 
+typedef struct s_arg
+{
+    char    *arg;
+    t_cmd_type   type;
+}   t_arg;
+
 typedef struct s_command
 {
     char        **args;
+    char        *arg_type;
     t_redirect   *redirects;
     int         redirect_count;
     struct s_command    *next;
