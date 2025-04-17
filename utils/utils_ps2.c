@@ -2,6 +2,30 @@
 #include "../libs/structs.h"
 #include "../my_lib/libft.h"
 
+int verify_aspas(char   *r)
+{
+    int     i;
+    char    aspas;
+
+    i = 0;
+    aspas = '\0';
+    while (r[i])
+    {
+        if (r[i] == '\'' || r[i] == '"')
+        {
+            if (aspas == '\0')
+                aspas = r[i];
+            else if (aspas == r[i])
+                aspas = '\0';
+        }
+        i++;
+    }
+    if (aspas == '\0')
+        return (1);
+    else
+        return (0);
+}
+
 void    free_commands(t_command *cmd)
 {
     t_command *tmp;

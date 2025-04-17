@@ -23,16 +23,9 @@ typedef struct s_redirect
     char    *filename;
 }   t_redirect;
 
-typedef struct s_arg
-{
-    char    *arg;
-    t_cmd_type   type;
-}   t_arg;
-
 typedef struct s_command
 {
     char        **args;
-    char        *arg_type;
     t_redirect   *redirects;
     int         redirect_count;
     struct s_command    *next;
