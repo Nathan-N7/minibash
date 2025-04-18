@@ -16,7 +16,7 @@ int ft_strcmp(const char *s1, const char *s2)
 	return (s[i] - s2[i]);
 }
 
-int main(int ac, char **av)
+int main(int ac, char **av, char **envp)
 {
     char        *input;
     t_command   *root;
@@ -34,7 +34,7 @@ int main(int ac, char **av)
         }
         if (*input)
             add_history(input);
-        root = parsing(input);
+        root = parsing(input, envp);
         free_commands(root);
         free (input);
     }

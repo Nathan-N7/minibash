@@ -22,7 +22,7 @@ void	add_token(t_token	**head, t_token	*new)
 		*head = new;
 		return ;
 	}
-	tmp = *head;
+	tmp = *head; 
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
@@ -39,7 +39,7 @@ t_token	*tokenize(char *input)
     {
 		if (ft_isspace(input[i]))
 			i++;
-		if (input[i] == '>' && input[i + 1] == '|')
+		else if (input[i] == '>' && input[i + 1] == '|')
 		{
 			add_token(&head, new_token(REDIR_OUT, ft_strdup(">|")));
 			i += 2;
@@ -77,6 +77,7 @@ t_token	*tokenize(char *input)
 		else
 		{
 			char	buffer[4096];
+			char	*tmp;
 			char	aspas;
 			int		buf_i;
 
@@ -84,15 +85,16 @@ t_token	*tokenize(char *input)
 			if (input[i] == '\'' || input[i] == '"')
 			{
 				aspas = input[i++];
+				head->type_aspas = aspas;
 				while (input[i] && input[i] != aspas)
 					buffer[buf_i++] = input[i++];
 				if (input[i] == aspas)
 					i++;
 			}
-			else
+			if (!ft_isspace(input[i]))
 			{
 				while (input[i] && !ft_isspace(input[i]) && input[i] != '|' &&
-					   input[i] != '<' && input[i] != '>' && input[i] != '\'' && input[i] != '"')
+					   input[i] != '<' && input[i] != '>')
 				{
 					buffer[buf_i++] = input[i++];
 				}
@@ -100,7 +102,8 @@ t_token	*tokenize(char *input)
 			if (buf_i)
 			{
 				buffer[buf_i] = '\0';
-				add_token(&head, new_token(WORD, ft_strdup(buffer)));
+				tmp = strip_aspas(buffer);
+				add_token(&head, new_token(WORD, tmp));
 			}
 		}
 	}

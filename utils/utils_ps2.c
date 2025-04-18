@@ -31,9 +31,9 @@ void    free_commands(t_command *cmd)
     t_command *tmp;
     int        i;
 
-    i = -1;
     while (cmd)
     {
+        i = -1;
         tmp = cmd->next;
         if (cmd->args)
         {

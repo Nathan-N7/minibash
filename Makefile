@@ -8,7 +8,8 @@ SOURCES = \
 	parser/tokenizar.c \
 	utils/utils_toke.c \
 	utils/utils_ps1.c \
-	utils/utils_ps2.c
+	utils/utils_ps2.c \
+	utils/expand.c
 
 
 OBJECTS = \
@@ -17,7 +18,8 @@ OBJECTS = \
 	objects/tokenizar.o \
 	objects/utils_toke.o \
 	objects/utils_ps1.o	\
-	objects/utils_ps2.o
+	objects/utils_ps2.o \
+	utils/expand.o
 
 LIBFT = my_lib/libft.a
 

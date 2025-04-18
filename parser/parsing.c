@@ -7,9 +7,10 @@ void	print_commands(t_command *cmds)
 	int	i = 1;
 	int	j;
 
-    j = 0;
+
 	while (cmds)
 	{
+        j = 0;
 		printf("📦 Command %d:\n", i++);
 		while (cmds->args && cmds->args[j])
         {
@@ -45,7 +46,6 @@ int init_redir(t_command *cmd)
     return (1);
 }
 
-
 t_command   *new_command(t_command  **head)
 {
     t_command   *new;
@@ -62,10 +62,10 @@ t_command   *new_command(t_command  **head)
     return (new);
 }
 
-int parse_token2(t_command  **cmd, t_token  **tok, int  *c)
+int parse_token2(t_command  **cmd, t_token  **tok, int  *c, char **envp)
 {
     if ((*tok)->type == WORD)
-        handle_word(*cmd, (*tok)->value, c);
+        handle_word(*cmd, *tok, c, envp);
     else if ((*tok)->type == REDIR_IN || (*tok)->type == REDIR_OUT || (*tok)->type == APPEND || (*tok)->type == HEREDOC)
     {
         if (!handle_redir(*cmd, tok))
@@ -79,7 +79,7 @@ int parse_token2(t_command  **cmd, t_token  **tok, int  *c)
     return (1);
 }
 
-t_command   *parse_tokens(t_token *tokens)
+t_command   *parse_tokens(t_token *tokens, char **envp)
 {
     t_command   *head;
     t_command   *current;
@@ -98,7 +98,7 @@ t_command   *parse_tokens(t_token *tokens)
             if (!current)
                 return (NULL);
         }
-        if (!parse_token2(&current, &tok, &count))
+        if (!parse_token2(&current, &tok, &count, envp))
             return (NULL);
         tok = tok->next;
     }
@@ -108,7 +108,7 @@ t_command   *parse_tokens(t_token *tokens)
     return (head);
 }
 
-t_command    *parsing(char *input)
+t_command    *parsing(char *input, char **envp)
 {   
     char        *r;
     t_token     *tokens;
@@ -141,7 +141,7 @@ t_command    *parsing(char *input)
         printf("TOKEN: type=%d, value=%s\n", tmp->type, tmp->value);
         tmp = tmp->next;
     }*/
-    commands = parse_tokens(tokens);
+    commands = parse_tokens(tokens, envp);
     if (commands)
         print_commands(commands);
     free(r);
