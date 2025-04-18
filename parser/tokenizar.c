@@ -90,7 +90,7 @@ t_token	*tokenize(char *input)
 					while (input[i] && input[i] != aspas)
 						buffer[buf_i++] = input[i++];
 					if (input[i] == aspas)
-						i++; // pula aspas final
+						i++;
 				}
 				else
 					buffer[buf_i++] = input[i++];
