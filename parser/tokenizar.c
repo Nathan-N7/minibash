@@ -77,34 +77,26 @@ t_token	*tokenize(char *input)
 		else
 		{
 			char	buffer[4096];
-			char	*tmp;
-			char	aspas;
 			int		buf_i;
+			char	aspas;
 
 			buf_i = 0;
-			if (input[i] == '\'' || input[i] == '"')
+			while (input[i] && !ft_isspace(input[i]) && input[i] != '|' &&
+		   		input[i] != '<' && input[i] != '>')
 			{
-				aspas = input[i++];
-				head->type_aspas = aspas;
-				while (input[i] && input[i] != aspas)
-					buffer[buf_i++] = input[i++];
-				if (input[i] == aspas)
-					i++;
-			}
-			if (!ft_isspace(input[i]))
-			{
-				while (input[i] && !ft_isspace(input[i]) && input[i] != '|' &&
-					   input[i] != '<' && input[i] != '>')
+				if (input[i] == '\'' || input[i] == '"')
 				{
-					buffer[buf_i++] = input[i++];
+					aspas = input[i++];
+					while (input[i] && input[i] != aspas)
+						buffer[buf_i++] = input[i++];
+					if (input[i] == aspas)
+						i++; // pula aspas final
 				}
+				else
+					buffer[buf_i++] = input[i++];
 			}
-			if (buf_i)
-			{
-				buffer[buf_i] = '\0';
-				tmp = strip_aspas(buffer);
-				add_token(&head, new_token(WORD, tmp));
-			}
+			buffer[buf_i] = '\0';
+			add_token(&head, new_token(WORD, ft_strdup(buffer)));
 		}
 	}
 	return (head);
