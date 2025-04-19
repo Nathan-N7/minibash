@@ -77,10 +77,12 @@ t_token	*tokenize(char *input)
 		else
 		{
 			char	buffer[4096];
+			t_token	*tok;
 			int		buf_i;
 			char	aspas;
 
 			buf_i = 0;
+			aspas = '\0';
 			while (input[i] && !ft_isspace(input[i]) && input[i] != '|' &&
 		   		input[i] != '<' && input[i] != '>')
 			{
@@ -96,7 +98,9 @@ t_token	*tokenize(char *input)
 					buffer[buf_i++] = input[i++];
 			}
 			buffer[buf_i] = '\0';
-			add_token(&head, new_token(WORD, ft_strdup(buffer)));
+			tok = new_token(WORD, ft_strdup(buffer));
+			tok->type_aspas = aspas;
+			add_token(&head, tok);
 		}
 	}
 	return (head);
