@@ -11,7 +11,10 @@ int	print_error(char *msg)
 int	handle_word(t_command *cmd, t_token *tok, int *c, char **envp)
 {
 	if (*c + 1 >= MAX_ARGS -1)
+	{
+		free_commands(cmd);
 		return (write(2, "\033[1;31m🚨 Error: too many arguments\033[0m\n", 39), 0);
+	}
 	else if (tok->type_aspas == '\'')
 		cmd->args[*c] = ft_strdup(tok->value);
 	else
@@ -25,7 +28,7 @@ int	handle_redir(t_command *cmd, t_token **tok)
 	if (!(*tok)->next || (*tok)->next->type != WORD)
 		return (write(2, "\033[1;31m🚨 Syntax Error: tokenize\033[0m\n", 39), 0);
 	if (cmd->redirect_count >= MAX_REDIRS)
-		return (print_error("Error"));
+		return (print_error("Error"), 0);
 	cmd->redirects[cmd->redirect_count].type = (*tok)->type;
 	cmd->redirects[cmd->redirect_count].filename = ft_strdup((*tok)->next->value);
 	cmd->redirect_count++;
@@ -35,8 +38,11 @@ int	handle_redir(t_command *cmd, t_token **tok)
 
 int	handle_pipe(t_command **cmd, int *count)
 {
-	if (!(*cmd)->args || !(*cmd)->args[0])
-		return (0);
+	if (!(*cmd)->args || !(*cmd)->args[0] || *count == 0)
+	{
+		free_commands(*cmd);	
+		return (printf("Error"), 0);
+	}
 	(*cmd)->args[*count] = NULL;
 	*cmd = new_command(&(*cmd)->next);
 	if (!*cmd)
