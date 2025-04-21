@@ -2,14 +2,14 @@
 #include "../libs/structs.h"
 #include "../my_lib/libft.h"
 
-
 int	ft_isspace(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\r' || c == '\f')
 		return (1);
 	return (0);
 }
-char *strip_aspas(char *str)
+
+char	*strip_aspas(char *str)
 {
 	int		i;
 	int		j;
@@ -34,7 +34,7 @@ char *strip_aspas(char *str)
 
 void	free_tokens(t_token *head)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	while (head)
 	{
