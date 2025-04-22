@@ -134,6 +134,7 @@ t_command    *parsing(char *input, char **envp)
             log = readline("> ");
             if (!log)
             {
+                write(2, "\033[1;31m🚨 Syntax Error: Aspas\033[0m\n", 36);
                 free(log);
                 free(r);
                 exit (0);
