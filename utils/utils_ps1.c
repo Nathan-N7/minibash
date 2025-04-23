@@ -11,10 +11,7 @@ int	print_error(char *msg)
 int	handle_word(t_command *cmd, t_token *tok, int *c, char **envp)
 {
 	if (*c + 1 >= MAX_ARGS -1)
-	{
-		free_commands(cmd);
 		return (write(2, "\033[1;31m🚨 Error: too many arguments\033[0m\n", 39), 0);
-	}
 	else if (tok->type_aspas == '\'')
 		cmd->args[*c] = ft_strdup(tok->value);
 	else
