@@ -7,6 +7,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
+#include <signal.h>
 #include "structs.h"
 
 t_command    *parsing(char *input, char **envp);

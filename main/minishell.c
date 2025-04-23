@@ -14,6 +14,21 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (s[i] - s2[i]);
 }
 
+void	handle_sig(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	set_sig(void)
+{
+	signal(SIGINT, handle_sig);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char		*input;
@@ -24,6 +39,7 @@ int	main(int ac, char **av, char **envp)
 		return (write(2, "\033[1;31m🚨 Error: initialization failure\033[0m\n", 45), 0);
 	while (1)
 	{
+		set_sig();
 		input = readline("\033[1;35m~sush$>\033[0m ");
 		if (!input || ft_strcmp(input, "exit") == 0)
 		{
