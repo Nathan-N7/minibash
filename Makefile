@@ -19,7 +19,7 @@ OBJECTS = \
 	objects/utils_toke.o \
 	objects/utils_ps1.o	\
 	objects/utils_ps2.o \
-	utils/expand.o
+	objects/expand.o
 
 LIBFT = my_lib/libft.a
 
@@ -28,7 +28,6 @@ all: $(NAME)
 $(NAME): $(LIBFT) $(OBJECTS)
 	@cc $(FLAGS) -o $(NAME) $(OBJECTS) -L my_lib -lft -lreadline -lhistory
 
-# Compilação dos objetos manual, sem % e com mkdir
 objects/minishell.o:
 	@mkdir -p objects
 	@cc $(FLAGS) -c main/minishell.c -o objects/minishell.o
