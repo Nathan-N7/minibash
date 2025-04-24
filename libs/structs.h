@@ -11,12 +11,6 @@ typedef enum    s_tk_type
     HEREDOC //<<
 }   t_tk_type;
 
-typedef enum    s_cmd_type
-{
-    IS_BUILTIN,
-    IS_COMAND,
-}   t_cmd_type;
-
 typedef struct s_redirect
 {
     t_tk_type type;

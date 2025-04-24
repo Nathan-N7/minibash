@@ -53,6 +53,10 @@ objects/utils_ps2.o:
 	@mkdir -p objects
 	@cc $(FLAGS) -c utils/utils_ps2.c -o objects/utils_ps2.o
 
+objects/expand.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c utils/expand.c -o objects/expand.o
+
 $(LIBFT):
 	@make -C my_lib
 
