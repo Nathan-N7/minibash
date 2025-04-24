@@ -10,17 +10,17 @@ void	print_commands(t_command *cmds)
 	while (cmds)
 	{
 		j = 0;
-		printf("📦 Command %d:\n", i++);
+		printf("-- Command %d:\n", i++);
 		while (cmds->args && cmds->args[j])
 		{
-			printf("  🔹 Arg[%d]: %s\n", j, cmds->args[j]);
+			printf("    Arg[%d]: %s\n", j, cmds->args[j]);
 			j++;
 		}
 		j = 0;
 		while (j < cmds->redirect_count)
 		{
 			const char *redir_type[] = { "WORD", "PIPE", "<", ">", ">>", "<<" };
-			printf("  🔁 Redirect: type=%s, file=%s\n",
+			printf("-> Redirect: type=%s, file=%s\n",
 				redir_type[cmds->redirects[j].type],
 				cmds->redirects[j].filename);
 			j++;
