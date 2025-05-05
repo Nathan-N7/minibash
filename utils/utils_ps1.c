@@ -24,8 +24,19 @@ int handle_word(t_command *cmd, t_token *tok, int *c, char **envp)
 int handle_redir(t_command *cmd, t_token **tok)
 {
     if (!(*tok)->next || (*tok)->next->type != WORD)
-        return (write(2, "\033[1;31m🚨 Syntax Error: tokenize\033[0m\n", 39), 0);
-    if (cmd->redirect_count >= MAX_REDIRS)
+    {
+        write(2, "\033[1;31m🚨 Syntax Error: tokenize\033[0m\n", 39);
+        return (0);
+    }
+    if ((*tok)->type == REDIR_IN)
+    {
+        if (access((*tok)->next->value, F_OK) != 0)
+        {
+            write(2, "\033[1;31m🚨 No such file or directory\033[0m\n", 43);
+            return (0);
+        }
+    }
+    if (cmd->redirect_count > MAX_REDIRS)
         return (print_error("Error"));
     cmd->redirects[cmd->redirect_count].type = (*tok)->type;
     cmd->redirects[cmd->redirect_count].filename = ft_strdup((*tok)->next->value);

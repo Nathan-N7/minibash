@@ -107,7 +107,7 @@ t_command   *parse_tokens(t_token *tokens, char **envp)
         }
         tok = tok->next;
     }
-    if (!current || (!current->args[0] && !init_redir(current)))
+    if (!current || (current->redirect_count == 0 && !current->args[0]))
     {
         free_commands(head);
         return (write(2, "\033[1;31m🚨 Syntax Error: tokenize\033[0m\n", 39), NULL);
