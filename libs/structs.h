@@ -29,7 +29,6 @@ typedef struct  s_token
 {
     t_tk_type       type;
     char            *value;
-    char            type_aspas;
     struct s_token  *next;
 }   t_token;
 
