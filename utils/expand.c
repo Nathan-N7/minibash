@@ -27,35 +27,59 @@ char	*get_value(char *name, char **envp)
 	return (ft_strdup(""));
 }
 
-char	*expand_var(char *v, char **envp)
+char	*expand_var(char *src, char **envp)
 {
-	char	buffer[4096];
-	char	varname[256];
-	char	*val;
-	int		i;
-	int		j;
-	int		k;
+    char buffer[4096];
+    char varname[256];
+    int i = 0;
+	int j = 0;
 
-	i = 0;
-	j = 0;
-	while (v[i])
+    while (src[i])
 	{
-		if (v[i] == '$' && ft_isalnum(v[i + 1]))
+        if (src[i] == '\'')
 		{
-			i++;
-			k = 0;
-			while (v[i] && (ft_isalnum(v[i]) || v[i] == '_'))
-				varname[k++] = v[i++];
-			varname[k] = '\0';
-			val = get_value(varname, envp);
-			k = 0;
-			while (val[k])
-				buffer[j++] = val[k++];
-			free(val);
-		}
-		else
-			buffer[j++] = v[i++];
-	}
-	buffer[j] = '\0';
-	return (ft_strdup(buffer));
+            i++;
+            while (src[i] && src[i] != '\'')
+                buffer[j++] = src[i++];
+            if (src[i] == '\'')
+				i++;
+        }
+        else if (src[i] == '\"')
+		{
+            i++;
+            while (src[i] && src[i] != '\"') {
+                if (src[i] == '$' && ft_isalnum(src[i+1])) {
+                    int k = 0;
+                    i++;
+                    while (src[i] && (ft_isalnum(src[i]) || src[i]=='_'))
+                        varname[k++] = src[i++];
+                    varname[k] = '\0';
+                    char *val = get_value(varname, envp);
+                    for (int m = 0; val[m]; m++)
+                        buffer[j++] = val[m];
+                    free(val);
+                } else
+                    buffer[j++] = src[i++];
+            }
+            if (src[i] == '\"')
+				i++;
+        }
+        else if (src[i] == '$' && ft_isalnum(src[i+1]))
+		{
+
+            int k = 0;
+            i++;
+            while (src[i] && (ft_isalnum(src[i]) || src[i]=='_'))
+                varname[k++] = src[i++];
+            varname[k] = '\0';
+            char *val = get_value(varname, envp);
+            for (int m = 0; val[m]; m++)
+                buffer[j++] = val[m];
+            free(val);
+        }
+        else
+            buffer[j++] = src[i++];
+    }
+    buffer[j] = '\0';
+    return ft_strdup(buffer);
 }

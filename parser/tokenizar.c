@@ -79,27 +79,15 @@ t_token	*tokenize(char *input)
 			char	buffer[4096];
 			t_token	*tok;
 			int		buf_i;
-			char	aspas;
 
 			buf_i = 0;
-			aspas = '\0';
 			while (input[i] && !ft_isspace(input[i]) && input[i] != '|' &&
 		   		input[i] != '<' && input[i] != '>')
 			{
-				if (input[i] == '\'' || input[i] == '"')
-				{
-					aspas = input[i++];
-					while (input[i] && input[i] != aspas)
-						buffer[buf_i++] = input[i++];
-					if (input[i] == aspas)
-						i++;
-				}
-				else
 					buffer[buf_i++] = input[i++];
 			}
 			buffer[buf_i] = '\0';
 			tok = new_token(WORD, ft_strdup(buffer));
-			tok->type_aspas = aspas;
 			add_token(&head, tok);
 		}
 	}
