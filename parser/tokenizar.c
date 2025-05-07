@@ -78,14 +78,26 @@ t_token	*tokenize(char *input)
 		{
 			char	buffer[4096];
 			t_token	*tok;
+			char	q;
 			int		buf_i;
 
 			buf_i = 0;
-			while (input[i] && !ft_isspace(input[i]) && input[i] != '|' &&
-		   		input[i] != '<' && input[i] != '>')
-			{
-					buffer[buf_i++] = input[i++];
-			}
+			while (input[i] && !ft_isspace(input[i]))
+    		{
+        		if (input[i] == '\'' || input[i] == '"')
+        		{
+            		q  = input[i++];
+            		buffer[buf_i++] = q;
+           			while (input[i] && input[i] != q)
+              			buffer[buf_i++] = input[i++];
+           			if (input[i] == q)
+                		buffer[buf_i++] = input[i++];
+        		}
+        	else if (input[i] == '|' || input[i] == '<' || input[i] == '>')
+            	break;
+        	else
+            	buffer[buf_i++] = input[i++];
+    		}
 			buffer[buf_i] = '\0';
 			tok = new_token(WORD, ft_strdup(buffer));
 			add_token(&head, tok);
