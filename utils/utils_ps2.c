@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_ps2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/08 10:43:57 by natrodri          #+#    #+#             */
+/*   Updated: 2025/05/08 10:44:24 by natrodri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libs/minishell.h"
 #include "../libs/structs.h"
 #include "../my_lib/libft.h"
 
-int	verify_aspas(char   *r)
+int	verify_aspas(char *r)
 {
 	int		i;
 	char	aspas;
@@ -24,6 +36,31 @@ int	verify_aspas(char   *r)
 		return (1);
 	else
 		return (0);
+}
+
+char	*get_value(char *name, char **envp)
+{
+	int	i;
+	int	j;
+	int	len;
+	char	result[4096];
+
+	i = 0;
+	len = ft_strlen(name);
+	while (envp[i])
+	{
+		if (!ft_strncmp(envp[i], name, len) && envp[i][len] == '=')
+		{
+			j = len;
+			len = 0;
+			while (envp[i][j])
+				result[len++] = envp[i][++j];
+			result[len] = '\0';
+			return (ft_strdup(result));
+		}
+		i++;
+	}
+	return (ft_strdup(""));
 }
 
 void	free_commands(t_command *cmd)

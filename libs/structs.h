@@ -25,6 +25,23 @@ typedef struct s_command
     struct s_command    *next;
 }   t_command;
 
+typedef struct s_indexvar
+{
+    int i;
+    int k;
+    int j;
+    int m;
+}   t_indexvar;
+
+typedef struct s_expand
+{
+	char		*src;
+	char		**envp;
+	t_indexvar	*idx;
+	char		*buffer;
+	char		*varname;
+}	t_expand;
+
 typedef struct  s_token
 {
     t_tk_type       type;

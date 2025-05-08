@@ -22,6 +22,7 @@ int handle_word(t_command *cmd, t_token *tok, int *c, char **envp);
 int handle_redir(t_command *cmd, t_token **tok);
 int handle_pipe(t_command **cmd, int *count);
 void    free_commands(t_command *cmd);
+char	*get_value(char *name, char **envp);
 char    *expand_var(char *v, char **envp);
 
 #endif
