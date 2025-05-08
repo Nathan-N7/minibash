@@ -110,7 +110,7 @@ t_command   *parse_tokens(t_token *tokens, char **envp)
     if (!current || (current->redirect_count == 0 && !current->args[0]))
     {
         free_commands(head);
-        return (write(2, "\033[1;31m🚨 Syntax rror: tokenize\033[0m\n", 39), NULL);
+        return (write(2, "\033[1;31m🚨 Syntax Error: tokenize\033[0m\n", 39), NULL);
     }
     current->args[count] = NULL;
     return (head);
@@ -123,7 +123,7 @@ t_command    *parsing(char *input, char **envp)
     t_command   *commands;
 
     r = ft_strtrim(input, " \t\n\v\r\f");
-    if (!r)
+    if (!r || r[0] == '\0')
         return (free(r), NULL);
     if (!verify_aspas(r))
     {
