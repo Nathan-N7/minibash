@@ -6,7 +6,7 @@
 /*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 10:44:47 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/08 10:47:08 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:32:52 by natrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	handle_redir(t_command *cmd, t_token **tok)
 	if (cmd->redirect_count > MAX_REDIRS)
 		return (print_error("Error"));
 	cmd->redirects[cmd->redirect_count].type = (*tok)->type;
-	cmd->redirects[cmd->redirect_count].filename = ft_strdup((*tok)->next->value);
+	cmd->redirects[cmd->redirect_count].filename
+		= ft_strdup((*tok)->next->value);
 	cmd->redirect_count++;
 	*tok = (*tok)->next;
 	return (1);

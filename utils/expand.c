@@ -6,7 +6,7 @@
 /*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 10:48:05 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/08 10:53:03 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:31:05 by natrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	handle_variable(t_expand *exp)
 
 	exp->idx->i++;
 	exp->idx->k = 0;
-	while (exp->src[exp->idx->i] &&
-		(ft_isalnum(exp->src[exp->idx->i]) || exp->src[exp->idx->i] == '_'))
+	while (exp->src[exp->idx->i] && (ft_isalnum(exp->src[exp->idx->i])
+			|| exp->src[exp->idx->i] == '_'))
 		exp->varname[exp->idx->k++] = exp->src[exp->idx->i++];
 	exp->varname[exp->idx->k] = '\0';
 	val = get_value(exp->varname, exp->envp);
@@ -89,4 +89,3 @@ char	*expand_var(char *src, char **envp)
 	buffer[idx.j] = '\0';
 	return (ft_strdup(buffer));
 }
-

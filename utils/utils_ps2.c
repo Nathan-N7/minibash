@@ -6,7 +6,7 @@
 /*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 10:43:57 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/08 10:44:24 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:31:46 by natrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int	verify_aspas(char *r)
 
 char	*get_value(char *name, char **envp)
 {
-	int	i;
-	int	j;
-	int	len;
+	int		i;
+	int		j;
+	int		len;
 	char	result[4096];
 
 	i = 0;
