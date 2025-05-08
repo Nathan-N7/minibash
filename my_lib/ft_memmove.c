@@ -6,7 +6,7 @@
 /*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 15:46:39 by natrodri          #+#    #+#             */
-/*   Updated: 2024/10/11 16:42:07 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:51:54 by natrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	//size_t				i;
 	unsigned char		*d;
 	const unsigned char	*s;
 
-	//i = 0;
 	d = (unsigned char *)dest;
 	s = (const unsigned char *)src;
 	if (!dest || !src)
@@ -32,15 +30,3 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 		ft_memcpy(d, s, n);
 	return (d);
 }
-
-/*#include <stdio.h>
-#include <string.h>
-int	main()
-{
-	char	str1[] = "abc";
-	//char	*s = ft_memmove(str1 + 2, str1, 4);
-	char	*p = ft_memmove(str1 + 2, str1, 3);
-	char	*k = ft_memcpy(str1 + 2, str1, 3);
-	printf("%s\n", p);
-	printf("%s\n", k);
-}*/
