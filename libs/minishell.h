@@ -20,6 +20,9 @@
 # include <readline/history.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <unistd.h>
+# include <sys/wait.h>
 # include "structs.h"
 
 t_command	*parsing(char *input, char **envp);
@@ -36,5 +39,6 @@ int			handle_pipe(t_command **cmd, int *count);
 void		free_commands(t_command *cmd);
 char		*get_value(char *name, char **envp);
 char		*expand_var(char *v, char **envp);
+void my_pipe(t_command *cmd);
 
 #endif

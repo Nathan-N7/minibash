@@ -9,7 +9,8 @@ SOURCES = \
 	utils/utils_toke.c \
 	utils/utils_ps1.c \
 	utils/utils_ps2.c \
-	utils/expand.c
+	utils/expand.c \
+	pipe/pipe.c
 
 
 OBJECTS = \
@@ -19,7 +20,8 @@ OBJECTS = \
 	objects/utils_toke.o \
 	objects/utils_ps1.o	\
 	objects/utils_ps2.o \
-	objects/expand.o
+	objects/expand.o \
+	objects/pipe.o
 
 LIBFT = my_lib/libft.a
 
@@ -55,6 +57,10 @@ objects/utils_ps2.o:
 objects/expand.o:
 	@mkdir -p objects
 	@cc $(FLAGS) -c utils/expand.c -o objects/expand.o
+
+objects/pipe.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c pipe/pipe.c -o objects/pipe.o
 
 $(LIBFT):
 	@make -C my_lib

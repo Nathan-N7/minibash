@@ -50,6 +50,7 @@ void	ft_putnbr_fd(int nb, int fd);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 size_t	ft_strlen(const char *str);
+int	ft_strcmp(const char *s1, const char *s2);
 
 typedef struct s_list
 {

@@ -1,0 +1,80 @@
+#include "../libs/minishell.h"
+#include "../my_lib/libft.h"
+#include "../libs/structs.h"
+
+int is_builtin(t_command *cmd)
+{
+    if (!cmd || !cmd->args || !cmd->args[0])
+        return (0);
+    if (ft_strcmp(cmd->args[0], "cd") == 0
+        || ft_strcmp(cmd->args[0], "exit") == 0
+        || ft_strcmp(cmd->args[0], "pwd") == 0
+        || ft_strcmp(cmd->args[0], "env") == 0
+        || ft_strcmp(cmd->args[0], "unset") == 0
+        || ft_strcmp(cmd->args[0], "export") == 0
+        || ft_strcmp(cmd->args[0], "echo") == 0)
+        return (1);
+    return (0);
+}
+
+
+void my_pipe(t_command *cmd)
+{
+	int		fd[2];
+	int		in_fd = 0;
+	pid_t	pid;
+
+	while (cmd)
+	{
+		if (cmd->next && pipe(fd) == -1)
+		{
+			perror("pipe");
+			exit(1);
+		}
+		pid = fork();
+		if (pid == -1)
+		{
+			perror("fork");
+			exit(1);
+		}
+		if (pid == 0)
+		{
+			if (in_fd != 0)
+			{
+				dup2(in_fd, STDIN_FILENO);
+				close(in_fd);
+			}
+			if (cmd->next)
+			{
+				close(fd[0]);
+				dup2(fd[1], STDOUT_FILENO);
+				close(fd[1]);
+			}
+			/*if (cmd->redirect_count > 0)
+				apply_redirects(); // nao feito ainda
+			if (is_builtin(cmd)) 
+			{
+				execute_builtin(cmd); // nao feito ainda
+				exit(0);
+			}*/
+			else
+			{
+				execvp(cmd->args[0], cmd->args);
+				perror("execvp");
+				exit(1);
+			}
+		}
+		else
+		{
+			if (in_fd != 0)
+				close(in_fd);
+			if (cmd->next)
+			{
+				close(fd[1]);
+				in_fd = fd[0];
+			}
+			cmd = cmd->next;
+		}
+	}
+	while (wait(NULL) > 0);
+}

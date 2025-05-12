@@ -14,18 +14,6 @@
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	unsigned int	i;
-	unsigned char	*s;
-
-	s = (unsigned char *)s1;
-	i = 0;
-	while (s[i] && s2[i] && s[i] == s2[i])
-		i++;
-	return (s[i] - s2[i]);
-}
-
 void	handle_sig(int sig)
 {
 	(void)sig;
@@ -49,7 +37,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	if (ac != 1)
 	{
-		return (write(2, "\033[1;31m🚨 Init error \033[0m\n", 30), 0);
+		return (write(2, "\033[1;31m🚨 Init error \033[0m\n", 29), 0);
 	}
 	while (1)
 	{
@@ -63,6 +51,8 @@ int	main(int ac, char **av, char **envp)
 		if (*input)
 			add_history(input);
 		root = parsing(input, envp);
+		if (root)
+			my_pipe(root);
 		free_commands(root);
 		free (input);
 	}
