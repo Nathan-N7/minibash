@@ -17,7 +17,6 @@ int is_builtin(t_command *cmd)
     return (0);
 }
 
-
 void my_pipe(t_command *cmd)
 {
 	int		fd[2];
@@ -51,18 +50,15 @@ void my_pipe(t_command *cmd)
 				close(fd[1]);
 			}
 			/*if (cmd->redirect_count > 0)
-				apply_redirects(); // nao feito ainda
-			if (is_builtin(cmd)) 
+				apply_redirects();
+			if (is_builtin(cmd))
 			{
-				execute_builtin(cmd); // nao feito ainda
+				execute_builtin(cmd);
 				exit(0);
 			}*/
-			else
-			{
-				execvp(cmd->args[0], cmd->args);
-				perror("execvp");
-				exit(1);
-			}
+			execvp(cmd->args[0], cmd->args);
+			perror("execvp");
+			exit(1);
 		}
 		else
 		{
@@ -73,8 +69,11 @@ void my_pipe(t_command *cmd)
 				close(fd[1]);
 				in_fd = fd[0];
 			}
-			cmd = cmd->next;
+			else
+				if (fd[0] > 0)
+					close(fd[0]);
 		}
+		cmd = cmd->next;
 	}
 	while (wait(NULL) > 0);
 }
