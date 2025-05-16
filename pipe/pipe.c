@@ -17,9 +17,35 @@ int is_builtin(t_command *cmd)
     return (0);
 }
 
-void	verify_cmd(char **envp)
+void execute_cmd(t_command *cmd, char **envp)
 {
+    char *expand;
+    char **path;
+    int i;
+    char *join;
+    char *tmp;
 
+    i = 0;
+    expand = expand_var("$PATH", envp);
+    path = ft_split(expand, ':');
+    while (path[i])
+    {
+        join = ft_strjoin(path[i], "/");
+        tmp = join;
+        join = ft_strjoin(join, cmd->args[0]);
+        free(tmp);
+        if (access(join, F_OK) == 0)
+        {
+            execve(join, cmd->args, envp);
+            perror("execve");
+            free(join);
+            exit(1);
+        }
+        free(join);
+        i++;
+    }
+	printf("%s: command not found\n", cmd->args[0]);
+	exit (0);
 }
 
 void my_pipe(t_command *cmd, char **envp)
@@ -62,9 +88,8 @@ void my_pipe(t_command *cmd, char **envp)
 				execute_builtin(cmd);
 				exit(0);
 			}*/
-			execvp(cmd->args[0], cmd->args);
-			perror("execvp");
-			exit(1);
+			//execvp(cmd->args[0], cmd->args);
+			execute_cmd(cmd, envp);
 		}
 		else
 		{
