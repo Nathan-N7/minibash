@@ -17,12 +17,18 @@ int is_builtin(t_command *cmd)
     return (0);
 }
 
-void my_pipe(t_command *cmd)
+void	verify_cmd(char **envp)
+{
+
+}
+
+void my_pipe(t_command *cmd, char **envp)
 {
 	int		fd[2];
-	int		in_fd = 0;
+	int		in_fd;
 	pid_t	pid;
 
+	in_fd = 0;
 	while (cmd)
 	{
 		if (cmd->next && pipe(fd) == -1)
@@ -67,7 +73,7 @@ void my_pipe(t_command *cmd)
 			if (cmd->next)
 			{
 				close(fd[1]);
-				in_fd = fd[0];
+				in_fd = fd[0]; 
 			}
 			else
 				if (fd[0] > 0)

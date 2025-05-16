@@ -39,6 +39,6 @@ int			handle_pipe(t_command **cmd, int *count);
 void		free_commands(t_command *cmd);
 char		*get_value(char *name, char **envp);
 char		*expand_var(char *v, char **envp);
-void my_pipe(t_command *cmd);
+void        my_pipe(t_command *cmd, char **envp);
 
 #endif

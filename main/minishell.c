@@ -52,7 +52,7 @@ int	main(int ac, char **av, char **envp)
 			add_history(input);
 		root = parsing(input, envp);
 		if (root)
-			my_pipe(root);
+			my_pipe(root, envp);
 		free_commands(root);
 		free (input);
 	}

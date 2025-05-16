@@ -65,9 +65,7 @@ void	process_char(t_expand *exp)
 		&& ft_isalnum(exp->src[exp->idx->i + 1]))
 		handle_variable(exp);
 	else
-	{
 		exp->buffer[exp->idx->j++] = exp->src[exp->idx->i++];
-	}
 }
 
 char	*expand_var(char *src, char **envp)
