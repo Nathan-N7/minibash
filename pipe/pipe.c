@@ -84,11 +84,7 @@ void my_pipe(t_command *cmd, char **envp)
 			/*if (cmd->redirect_count > 0)
 				apply_redirects();
 			if (is_builtin(cmd))
-			{
-				execute_builtin(cmd);
-				exit(0);
-			}*/
-			//execvp(cmd->args[0], cmd->args);
+				execute_builtin(cmd);*/
 			execute_cmd(cmd, envp);
 		}
 		else
