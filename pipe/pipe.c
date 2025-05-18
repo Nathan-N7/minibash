@@ -108,3 +108,7 @@ void	my_pipe(t_command *cmd, char **envp)
 	}
 	while (wait(NULL) > 0);
 }
+
+/*[cmd1] ---stdout---> [pipe1] ---stdin---> [cmd2] ---stdout---> [pipe2] ---stdin---> [cmd3]
+          	(fd[1])              (fd[0])         	 (fd[1])                fd[0])
+*/
