@@ -54,7 +54,7 @@ void	execute_cmd(t_command *cmd, char **envp)
 
 void	my_pipe(t_command *cmd, char **envp)
 {
-	int		fd[2];
+	int		fd[2] = {-1, -1};
 	int		in_fd;
 	pid_t		pid;
 
@@ -90,6 +90,7 @@ void	my_pipe(t_command *cmd, char **envp)
 			if (is_builtin(cmd))
 				execute_builtin(cmd);*/
 			execute_cmd(cmd, envp);
+			exit (0);
 		}
 		else
 		{
