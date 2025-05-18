@@ -13,7 +13,9 @@ int	is_builtin(t_command *cmd)
 		|| ft_strcmp(cmd->args[0], "unset") == 0
 		|| ft_strcmp(cmd->args[0], "export") == 0
 		|| ft_strcmp(cmd->args[0], "echo") == 0)
+	{
 		return (1);
+	}
 	return (0);
 }
 
