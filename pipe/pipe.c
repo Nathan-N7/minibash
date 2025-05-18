@@ -36,10 +36,12 @@ void	execute_cmd(t_command *cmd, char **envp)
 		free(tmp);
 		if (access(join, F_OK) == 0)
 		{
-			execve(join, cmd->args, envp);
-			perror("execve");
-			free(join);
-			exit(1);
+			if (execve(join, cmd->args, envp) == -1)
+			{
+				perror("execve");
+				free(join);
+				exit(1);
+			}
 		}
 		free(join);
 		i++;
