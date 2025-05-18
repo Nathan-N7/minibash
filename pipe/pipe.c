@@ -34,7 +34,7 @@ void	execute_cmd(t_command *cmd, char **envp)
 	{
 		join = ft_strjoin(path[i], "/");
 		tmp = join;
-		join = ft_strjoin(join, cmd->args[0]);
+		join = ft_strjoin(tmp, cmd->args[0]);
 		free(tmp);
 		if (access(join, F_OK) == 0)
 		{
@@ -74,7 +74,7 @@ void	my_pipe(t_command *cmd, char **envp)
 		}
 		if (pid == 0)
 		{
-			if (in_fd != 0)
+			if (in_fd != 0) //verifica sem ta com o fd[0] ou se ta zerado.
 			{
 				dup2(in_fd, STDIN_FILENO);
 				close(in_fd);
