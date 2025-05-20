@@ -23,6 +23,12 @@ typedef enum s_tk_type
 	HEREDOC
 }	t_tk_type;
 
+typedef enum s_op
+{
+	exec,
+	pid
+}	t_op;
+
 typedef struct s_redirect
 {
 	t_tk_type	type;

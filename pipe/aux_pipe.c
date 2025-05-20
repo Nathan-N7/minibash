@@ -1,0 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   aux_pipe.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/20 11:27:51 by natrodri          #+#    #+#             */
+/*   Updated: 2025/05/20 16:23:58 by natrodri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libs/minishell.h"
+#include "../my_lib/libft.h"
+#include "../libs/structs.h"
+
+int	is_builtin(t_command *cmd)
+{
+	if (!cmd || !cmd->args || !cmd->args[0])
+		return (0);
+	if (ft_strcmp(cmd->args[0], "cd") == 0
+		|| ft_strcmp(cmd->args[0], "exit") == 0
+		|| ft_strcmp(cmd->args[0], "pwd") == 0
+		|| ft_strcmp(cmd->args[0], "env") == 0
+		|| ft_strcmp(cmd->args[0], "unset") == 0
+		|| ft_strcmp(cmd->args[0], "export") == 0
+		|| ft_strcmp(cmd->args[0], "echo") == 0)
+	{
+		return (1);
+	}
+	return (0);
+}
+
+void	error_pipe(char *join, t_op	op)
+{
+	if (op == exec)
+	{
+		perror("execve");
+		free(join);
+		exit (1);
+	}
+	else if (op == pid)
+	{
+		perror("fork");
+		exit(1);
+	}
+}
