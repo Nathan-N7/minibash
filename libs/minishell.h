@@ -42,5 +42,6 @@ char		*expand_var(char *v, char **envp);
 void        my_pipe(t_command *cmd, char **envp);
 int         is_builtin(t_command *cmd);
 void	    error_pipe(char *join, t_op	op);
+void        ft_pwd();
 
 #endif
