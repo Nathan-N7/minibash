@@ -31,7 +31,7 @@ void	execute_cmd(t_command *cmd, char **envp)
 		tmp = join;
 		join = ft_strjoin(tmp, cmd->args[0]);
 		free(tmp);
-		if (access(join, F_OK) == 0)
+		if (access(join, F_OK && X_OK) == 0)
 		{
 			if (execve(join, cmd->args, envp) < 0)
 				error_pipe(join, exec);

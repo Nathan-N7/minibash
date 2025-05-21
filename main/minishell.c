@@ -36,9 +36,7 @@ int	main(int ac, char **av, char **envp)
 
 	(void)av;
 	if (ac != 1)
-	{
 		return (write(2, "\033[1;31m🚨 Init error \033[0m\n", 29), 0);
-	}
 	while (1)
 	{
 		set_sig();
