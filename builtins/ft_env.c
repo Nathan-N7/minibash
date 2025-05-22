@@ -23,9 +23,9 @@ void    free_env(t_envp *env)
         tmp = env->next;
         free(env->key);
         free(env->value);
+        free(env);
         env = tmp;
     }
-    free(env);
 }
 
 t_envp  *new_node(char *envp)
@@ -76,13 +76,15 @@ t_envp *get_env(char **envp)
 void    ft_env(char **envp)
 {
     t_envp  *env;
+    t_envp  *head;
 
     env = get_env(envp);
+    head = env;
     while (env)
     {
         if (env->value)
             printf("%s=%s\n", env->key, env->value);
         env = env->next;
     }
-    free_env(env);
+    free_env(head);
 }

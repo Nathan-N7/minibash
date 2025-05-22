@@ -25,6 +25,8 @@ void	handle_variable(t_expand *exp)
 		exp->varname[exp->idx->k++] = exp->src[exp->idx->i++];
 	exp->varname[exp->idx->k] = '\0';
 	val = get_value(exp->varname, exp->envp);
+	if (!val)
+		val = ft_strdup("");
 	exp->idx->m = 0;
 	while (val[exp->idx->m])
 		exp->buffer[exp->idx->j++] = val[exp->idx->m++];

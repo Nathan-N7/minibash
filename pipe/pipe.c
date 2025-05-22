@@ -61,7 +61,7 @@ void	son(int in_fd, int fd[2], t_command *cmd, char **envp)
 	if (is_builtin(cmd))
 	{
 		execute_builtin(envp, cmd);
-		exit (0);
+		return ;
 	}
 	execute_cmd(cmd, envp);
 	exit (0);
