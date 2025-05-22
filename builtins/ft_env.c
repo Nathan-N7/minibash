@@ -14,6 +14,20 @@ int ft_lenenv(const char *env)
     return (i);
 }
 
+void    free_env(t_envp *env)
+{
+    t_envp  *tmp;
+
+    while (env)
+    {
+        tmp = env->next;
+        free(env->key);
+        free(env->value);
+        env = tmp;
+    }
+    free(env);
+}
+
 t_envp  *new_node(char *envp)
 {
     t_envp  *new;
@@ -70,4 +84,5 @@ void    ft_env(char **envp)
             printf("%s=%s\n", env->key, env->value);
         env = env->next;
     }
+    free_env(env);
 }
