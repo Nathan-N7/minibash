@@ -43,5 +43,7 @@ void        my_pipe(t_command *cmd, char **envp);
 int         is_builtin(t_command *cmd);
 void	    error_pipe(char *join, t_op	op);
 void        ft_pwd();
+void        ft_env(char **envp);
+void        execute_builtin(char **envp, t_command *cmd);
 
 #endif

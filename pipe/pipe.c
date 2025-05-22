@@ -57,9 +57,12 @@ void	son(int in_fd, int fd[2], t_command *cmd, char **envp)
 		close(fd[1]);
 	}
 	/*if (cmd->redirect_count > 0)
-		apply_redirects();
+		apply_redirects();*/
 	if (is_builtin(cmd))
-		execute_builtin(cmd);*/
+	{
+		execute_builtin(envp, cmd);
+		exit (0);
+	}
 	execute_cmd(cmd, envp);
 	exit (0);
 }

@@ -79,7 +79,7 @@ t_command	*new_command(t_command **head)
 	new->args = ft_calloc(MAX_ARGS, sizeof(char *));
 	if (!new->args)
 		return (NULL);
-	new->redirects = ft_calloc(MAX_REDIRS, sizeof(t_redirect));
+	new->redirects = ft_calloc(new->redirect_count, sizeof(t_redirect));
 	if (!*head)
 		*head = new;
 	return (new);

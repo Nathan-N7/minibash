@@ -11,7 +11,9 @@ SOURCES = \
 	utils/utils_ps2.c \
 	utils/expand.c \
 	pipe/pipe.c \
-	pipe/aux_pipe.c
+	pipe/aux_pipe.c \
+	builtins/ft_env.c \
+	builtins/ft_pwd.c
 
 
 OBJECTS = \
@@ -23,7 +25,9 @@ OBJECTS = \
 	objects/utils_ps2.o \
 	objects/expand.o \
 	objects/pipe.o \
-	objects/aux_pipe.o
+	objects/aux_pipe.o \
+	objects/ft_env.o \
+	objects/ft_pwd.o
 
 LIBFT = my_lib/libft.a
 
@@ -67,6 +71,14 @@ objects/pipe.o:
 objects/aux_pipe.o:
 	@mkdir -p objects
 	@cc $(FLAGS) -c pipe/aux_pipe.c -o objects/aux_pipe.o
+
+objects/ft_env.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c builtins/ft_env.c -o objects/ft_env.o
+
+objects/ft_pwd.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c builtins/ft_pwd.c -o objects/ft_pwd.o
 
 $(LIBFT):
 	@make -C my_lib

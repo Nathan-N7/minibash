@@ -31,6 +31,16 @@ int	is_builtin(t_command *cmd)
 	return (0);
 }
 
+void	execute_builtin(char **envp, t_command *cmd)
+{
+	if(ft_strcmp(cmd->args[0], "env") == 0)
+		ft_env(envp);
+	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
+		ft_pwd();
+	else
+		printf("fudeu tudo");
+}
+
 void	error_pipe(char *join, t_op	op)
 {
 	if (op == exec)

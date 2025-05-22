@@ -67,4 +67,11 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_envp
+{
+	char			*key;
+	char			*value;
+	struct	s_envp	*next;
+}	t_envp;
+
 #endif
