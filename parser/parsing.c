@@ -149,10 +149,10 @@ t_command	*parsing(char *input, char **envp)
 	}
 	tokens = tokenize(r);
 	commands = parse_tokens(tokens, envp);
-	if (commands)
+	/*if (commands)
 		print_commands(commands);
-	/*print_tokens(tokens);
+	print_tokens(tokens);*/
 	free(r);
-	free_tokens(tokens);*/
+	free_tokens(tokens);
 	return (commands);
 }
