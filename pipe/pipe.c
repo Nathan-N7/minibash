@@ -59,11 +59,10 @@ void	son(int in_fd, int fd[2], t_command *cmd, char **envp)
 	/*if (cmd->redirect_count > 0)
 		apply_redirects();*/
 	if (is_builtin(cmd))
-	{
 		execute_builtin(envp, cmd);
-		return ;
-	}
-	execute_cmd(cmd, envp);
+	else
+		execute_cmd(cmd, envp);
+	free_commands(cmd);
 	exit (0);
 }
 

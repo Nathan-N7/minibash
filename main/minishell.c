@@ -51,7 +51,8 @@ int	main(int ac, char **av, char **envp)
 		root = parsing(input, envp);
 		if (root)
 			my_pipe(root, envp);
-		free_commands(root);
+		if (root)
+			free_commands(root);
 		free (input);
 	}
 	rl_clear_history();
