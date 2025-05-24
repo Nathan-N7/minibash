@@ -32,10 +32,8 @@ t_envp  *new_node(char *envp)
 {
     t_envp  *new;
     int     len;
-    int     i;
 
     len = 0;
-    i = 0;
     len = ft_lenenv(envp);
     new = ft_calloc(1, sizeof(t_envp));
     if (!new)

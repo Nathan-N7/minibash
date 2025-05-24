@@ -44,6 +44,7 @@ int         is_builtin(t_command *cmd);
 void	    error_pipe(char *join, t_op	op);
 void        ft_pwd();
 void        ft_env(char **envp);
+int         ft_echo(char **arg);
 void        execute_builtin(char **envp, t_command *cmd);
 
 #endif

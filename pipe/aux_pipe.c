@@ -37,6 +37,8 @@ void	execute_builtin(char **envp, t_command *cmd)
 		ft_env(envp);
 	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
 		ft_pwd();
+	else if (ft_strcmp(cmd->args[0], "echo") == 0)
+		ft_echo(cmd->args);
 	else
 		printf("fudeu tudo");
 }

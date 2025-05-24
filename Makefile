@@ -13,7 +13,8 @@ SOURCES = \
 	pipe/pipe.c \
 	pipe/aux_pipe.c \
 	builtins/ft_env.c \
-	builtins/ft_pwd.c
+	builtins/ft_pwd.c \
+	builtins/ft_echo.c
 
 
 OBJECTS = \
@@ -27,7 +28,8 @@ OBJECTS = \
 	objects/pipe.o \
 	objects/aux_pipe.o \
 	objects/ft_env.o \
-	objects/ft_pwd.o
+	objects/ft_pwd.o \
+	objects/ft_echo.o
 
 LIBFT = my_lib/libft.a
 
@@ -79,6 +81,10 @@ objects/ft_env.o:
 objects/ft_pwd.o:
 	@mkdir -p objects
 	@cc $(FLAGS) -c builtins/ft_pwd.c -o objects/ft_pwd.o
+
+objects/ft_echo.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c builtins/ft_echo.c -o objects/ft_echo.o
 
 $(LIBFT):
 	@make -C my_lib
