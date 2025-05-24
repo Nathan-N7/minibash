@@ -14,16 +14,22 @@
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
+int	builtin_father(t_command *cmd)
+{
+	if (ft_strcmp(cmd->args[0], "exit") == 0
+		||	ft_strcmp(cmd->args[0], "cd") == 0
+		||	ft_strcmp(cmd->args[0], "unset") == 0
+		||	ft_strcmp(cmd->args[0], "export") == 0)
+		return (1);
+	return (0);
+}
+
 int	is_builtin(t_command *cmd)
 {
 	if (!cmd || !cmd->args || !cmd->args[0])
 		return (0);
-	if (ft_strcmp(cmd->args[0], "cd") == 0
-		|| ft_strcmp(cmd->args[0], "exit") == 0
-		|| ft_strcmp(cmd->args[0], "pwd") == 0
+	if (ft_strcmp(cmd->args[0], "pwd") == 0
 		|| ft_strcmp(cmd->args[0], "env") == 0
-		|| ft_strcmp(cmd->args[0], "unset") == 0
-		|| ft_strcmp(cmd->args[0], "export") == 0
 		|| ft_strcmp(cmd->args[0], "echo") == 0)
 	{
 		return (1);

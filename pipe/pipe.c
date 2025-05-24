@@ -91,6 +91,11 @@ void	my_pipe(t_command *cmd, char **envp)
 	fd[1] = -1;
 	while (cmd)
 	{
+		if (builtin_father(cmd) && !cmd->next)
+		{
+			execute_builtin(envp, cmd);
+			break ;
+		}
 		if (cmd->next && pipe(fd) == -1)
 		{
 			perror("pipe");
