@@ -51,6 +51,8 @@ int         ft_echo(char **arg);
 int         ft_cd(char *path);
 int         builtin_father(t_command *cmd);
 int         isdirectory(const char *pathname);
+void        handle_heredoc(t_redirect *redir);
+void        handle_append(t_redirect *redir, char **envp);
 void        handle_redin(t_redirect *redir, char **envp);
 char        *create_pathname(const char *filename, char **envp);
 int         handle_redirects(t_command *cmd, char **envp);

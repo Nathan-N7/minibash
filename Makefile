@@ -19,7 +19,9 @@ SOURCES = \
 	redirects/pathname_utils.c \
 	redirects/redirect.c \
 	redirects/redout.c \
-	redirects/redin.c
+	redirects/redin.c \
+	redirects/append.c \
+	redirects/heredoc.c
 
 
 OBJECTS = \
@@ -39,7 +41,9 @@ OBJECTS = \
 	objects/pathname_utils.o \
 	objects/redirect.o \
 	objects/redout.o \
-	objects/redin.o
+	objects/redin.o \
+	objects/append.o \
+	objects/heredoc.o
 
 LIBFT = my_lib/libft.a
 
@@ -115,6 +119,14 @@ objects/redout.o:
 objects/redin.o:
 	@mkdir -p objects
 	@cc $(FLAGS) -c redirects/redin.c -o objects/redin.o
+
+objects/append.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c redirects/append.c -o objects/append.o
+
+objects/heredoc.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c redirects/heredoc.c -o objects/heredoc.o
 
 
 $(LIBFT):

@@ -13,12 +13,12 @@ int handle_redirects(t_command *cmd, char **envp)
 		r = &cmd->redirects[i];
 		if (r->type == REDIR_OUT)
 			handle_redout(r, envp);
-		//else if (r->type == APPEND)
-		//	handle_append(r, envp);
+		else if (r->type == APPEND)
+			handle_append(r, envp);
 		else if (r->type == REDIR_IN)
 			handle_redin(r, envp);
-		//else if (r->type == HEREDOC)
-		//	handle_heredoc(r);
+		else if (r->type == HEREDOC)
+			handle_heredoc(r);
 	}
 	return 0;
 }
