@@ -15,14 +15,17 @@
 # define MAX_ARGS 512
 # define MAX_REDIRS 32
 
+# include <stdlib.h>
 # include <stdio.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <stdlib.h>
+# include <sys/stat.h>
 # include <signal.h>
-# include <sys/types.h>
-# include <unistd.h>
+# include <errno.h>
+# include <limits.h>
 # include <sys/wait.h>
+# include <sys/types.h>
 # include "structs.h"
 
 t_command	*parsing(char *input, char **envp);
@@ -47,6 +50,11 @@ void        ft_env(char **envp);
 int         ft_echo(char **arg);
 int         ft_cd(char *path);
 int         builtin_father(t_command *cmd);
+int         isdirectory(const char *pathname);
+void        handle_redin(t_redirect *redir, char **envp);
+char        *create_pathname(const char *filename, char **envp);
+int         handle_redirects(t_command *cmd, char **envp);
+void        handle_redout(t_redirect *redir, char **envp);
 void        execute_builtin(char **envp, t_command *cmd);
 
 #endif

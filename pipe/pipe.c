@@ -56,12 +56,16 @@ void	son(int in_fd, int fd[2], t_command *cmd, char **envp)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 	}
-	/*if (cmd->redirect_count > 0)
-		apply_redirects();*/
-	if (is_builtin(cmd))
-		execute_builtin(envp, cmd);
-	else
-		execute_cmd(cmd, envp);
+	if (cmd->redirect_count > 0)
+		if (handle_redirects(cmd, envp) < 0)
+			exit (1);
+	if (cmd->args && cmd->args[0])
+	{
+		if (is_builtin(cmd))
+			execute_builtin(envp, cmd);
+		else
+			execute_cmd(cmd, envp);
+	}
 	free_commands(cmd);
 	exit (0);
 }

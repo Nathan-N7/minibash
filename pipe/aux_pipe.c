@@ -16,6 +16,8 @@
 
 int	builtin_father(t_command *cmd)
 {
+	if (!cmd || !cmd->args || !cmd->args[0])
+		return 0;
 	if (ft_strcmp(cmd->args[0], "exit") == 0
 		||	ft_strcmp(cmd->args[0], "cd") == 0
 		||	ft_strcmp(cmd->args[0], "unset") == 0

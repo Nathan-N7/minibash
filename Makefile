@@ -15,7 +15,11 @@ SOURCES = \
 	builtins/ft_env.c \
 	builtins/ft_pwd.c \
 	builtins/ft_echo.c \
-	builtins/ft_cd.c
+	builtins/ft_cd.c \
+	redirects/pathname_utils.c \
+	redirects/redirect.c \
+	redirects/redout.c \
+	redirects/redin.c
 
 
 OBJECTS = \
@@ -31,7 +35,11 @@ OBJECTS = \
 	objects/ft_env.o \
 	objects/ft_pwd.o \
 	objects/ft_echo.o \
-	objects/ft_cd.o
+	objects/ft_cd.o \
+	objects/pathname_utils.o \
+	objects/redirect.o \
+	objects/redout.o \
+	objects/redin.o
 
 LIBFT = my_lib/libft.a
 
@@ -91,6 +99,22 @@ objects/ft_echo.o:
 objects/ft_cd.o:
 	@mkdir -p objects
 	@cc $(FLAGS) -c builtins/ft_cd.c -o objects/ft_cd.o
+
+objects/pathname_utils.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c redirects/pathname_utils.c -o objects/pathname_utils.o
+
+objects/redirect.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c redirects/redirect.c -o objects/redirect.o
+
+objects/redout.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c redirects/redout.c -o objects/redout.o
+
+objects/redin.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c redirects/redin.c -o objects/redin.o
 
 
 $(LIBFT):
