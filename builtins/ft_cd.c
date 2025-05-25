@@ -2,11 +2,6 @@
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
-#include <unistd.h>    // chdir, getcwd
-#include <stdio.h>     // perror, printf
-#include <stdlib.h>    // getenv, malloc, free
-#include <string.h>    // strcmp (ou sua libft)
-
 int ft_cd(char *path)
 {
     char    *home;
