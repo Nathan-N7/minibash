@@ -28,7 +28,7 @@
 # include <sys/types.h>
 # include "structs.h"
 
-t_command	*parsing(char *input, char **envp);
+t_command	*parsing(char *input, t_envp *env);
 t_token		*tokenize(char *input);
 int			ft_isspace(char c);
 char		*strip_aspas(char *str);
@@ -42,11 +42,11 @@ int			handle_pipe(t_command **cmd, int *count);
 void		free_commands(t_command *cmd);
 char		*get_value(char *name, char **envp);
 char		*expand_var(char *v, char **envp);
-void        my_pipe(t_command *cmd, char **envp);
+void	    my_pipe(t_command *cmd, t_envp *env);
 int         is_builtin(t_command *cmd);
 void	    error_pipe(char *join, t_op	op);
 void        ft_pwd();
-void        ft_env(char **envp);
+void        ft_env(t_envp *env);
 int         ft_echo(char **arg);
 int         ft_cd(char *path);
 int         builtin_father(t_command *cmd);
@@ -57,6 +57,6 @@ void        handle_redin(t_redirect *redir, char **envp);
 char        *create_pathname(const char *filename, char **envp);
 int         handle_redirects(t_command *cmd, char **envp);
 void        handle_redout(t_redirect *redir, char **envp);
-void        execute_builtin(char **envp, t_command *cmd);
+void	    execute_builtin(t_envp *env, t_command *cmd);
 
 #endif

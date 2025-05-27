@@ -43,7 +43,7 @@ void	execute_cmd(t_command *cmd, char **envp)
 	exit (1);
 }
 
-void	son(int in_fd, int fd[2], t_command *cmd, char **envp)
+void	son(int in_fd, int fd[2], t_command *cmd, t_envp *env)
 {
 	if (in_fd != 0)
 	{
@@ -57,14 +57,14 @@ void	son(int in_fd, int fd[2], t_command *cmd, char **envp)
 		close(fd[1]);
 	}
 	if (cmd->redirect_count > 0)
-		if (handle_redirects(cmd, envp) < 0)
+		if (handle_redirects(cmd, env->envp) < 0)
 			exit (1);
 	if (cmd->args && cmd->args[0])
 	{
 		if (is_builtin(cmd))
-			execute_builtin(envp, cmd);
+			execute_builtin(env, cmd);
 		else
-			execute_cmd(cmd, envp);
+			execute_cmd(cmd, env->envp);
 	}
 	free_commands(cmd);
 	exit (0);
@@ -84,7 +84,7 @@ void	father(int *in_fd, int fd[2], t_command *cmd)
 			close(fd[0]);
 }
 
-void	my_pipe(t_command *cmd, char **envp)
+void	my_pipe(t_command *cmd, t_envp *env)
 {
 	int		fd[2];
 	int		in_fd;
@@ -97,7 +97,7 @@ void	my_pipe(t_command *cmd, char **envp)
 	{
 		if (builtin_father(cmd) && !cmd->next)
 		{
-			execute_builtin(envp, cmd);
+			execute_builtin(env, cmd);
 			break ;
 		}
 		if (cmd->next && pipe(fd) == -1)
@@ -109,7 +109,7 @@ void	my_pipe(t_command *cmd, char **envp)
 		if (pid == -1)
 			error_pipe(NULL, pid);
 		if (pid == 0)
-			son(in_fd, fd, cmd, envp);
+			son(in_fd, fd, cmd, env);
 		else
 			father(&in_fd, fd, cmd);
 		cmd = cmd->next;

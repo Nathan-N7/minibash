@@ -132,13 +132,15 @@ t_command	*parse_tokens(t_token *tokens, char **envp)
 	return (current->args[count] = NULL, head);
 }
 
-t_command	*parsing(char *input, char **envp)
+t_command	*parsing(char *input, t_envp *env)
 {
 	char		*r;
 	t_token		*tokens;
 	t_command	*commands;
+	char		**envp;
 
 	r = ft_strtrim(input, " \t\n\v\r\f");
+	envp = env->envp;
 	if (!r || r[0] == '\0')
 		return (free(r), NULL);
 	if (!verify_aspas(r))
