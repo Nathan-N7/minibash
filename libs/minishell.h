@@ -28,6 +28,7 @@
 # include <sys/types.h>
 # include "structs.h"
 
+char        **clone_env(char **envp);
 t_command	*parsing(char *input, t_envp *env);
 t_token		*tokenize(char *input);
 int			ft_isspace(char c);
@@ -49,6 +50,7 @@ void        ft_pwd();
 void        ft_env(t_envp *env);
 int         ft_echo(char **arg);
 int         ft_cd(char *path);
+void        ft_export(char **args, t_envp *env);
 int         builtin_father(t_command *cmd);
 int         isdirectory(const char *pathname);
 void        handle_heredoc(t_redirect *redir);
