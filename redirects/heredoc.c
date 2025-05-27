@@ -2,13 +2,11 @@
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
-void handle_heredoc(t_redirect *redir)
+void handle_heredoc(t_redirect *redir, int *error_flag, char **envp)
 {
     char    *rline;
     int     pipefd[2];
-    char    *limiter;
-
-	limiter = redir->filename;
+	
 	if (pipe(pipefd) < 0)
 	{
 		perror("pipe");
@@ -19,13 +17,12 @@ void handle_heredoc(t_redirect *redir)
 		rline = readline(">");
 		if (!rline)
 			break ;
-		if (!strcmp(rline, limiter))
+		if (!strcmp(rline, redir->filename))
 		{
 			free(rline);
 			break ;
 		}
-		write(pipefd[1], rline, strlen(rline));
-		write(pipefd[1], "\n", 1);
+		my_printf_fd("%s\n", pipefd[1], rline);
 		free(rline);
 	}
 	close(pipefd[1]);

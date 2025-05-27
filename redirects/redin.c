@@ -1,26 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redin.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/27 15:38:32 by lbarreto          #+#    #+#             */
+/*   Updated: 2025/05/27 15:38:32 by lbarreto         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libs/minishell.h"
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
-void execute_redin(char *pathname)
+void execute_redin(char *pathname, int *error_flag)
 {
     int fd;
-	if (isdirectory(pathname))
+
+	if (access(pathname, R_OK) == 0)
+		fd = open(pathname, O_RDONLY);
+	else
 	{
-		write(2, "minishell: Is a directory\n", 27);
-		return;
-	}
-	fd = open(pathname, O_RDONLY);
-	if (fd < 0)
-	{
-		write(2, "minishell: No such file or directory\n", 38);
-		return ;
+		my_printf_fd("minishell: %s: Permission Denied\n", 2, pathname);
+		*error_flag = TRUE;
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 }
 
-void handle_redin(t_redirect *redir, char **envp)
+void handle_redin(t_redirect *redir, int *error_flag, char **envp)
 {
 	char *fname;
 	char *pathname;

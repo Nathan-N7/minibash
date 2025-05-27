@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 12:17:24 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/18 00:51:25 by lbarreto         ###   ########.fr       */
+/*   Created: 2024/10/17 13:40:07 by lbarreto          #+#    #+#             */
+/*   Updated: 2025/04/18 01:05:42 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	ft_putstr_fd(char *s, int fd)
-{
-	return (write(fd, s, ft_strlen(s)));
-}
+# include <unistd.h>
+# include <stdarg.h>
+
+int	ft_putchar(char c);
+int	ft_putnbr(int n);
+int	ft_putstr(char const *str);
+int	ft_putnbr_base(unsigned int n, char *base);
+int	ft_putpointer(void *ptr);
+int	my_printf(char const *s, ...);
+
+#endif

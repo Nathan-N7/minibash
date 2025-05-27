@@ -35,7 +35,7 @@ void new_file_redout(char *pathname)
 	close(fd);
 }
 
-void handle_redout(t_redirect *redir, char **envp)
+void handle_redout(t_redirect *redir, int *error_flag, char **envp)
 {
 	char *fname;
 	char *pathname;

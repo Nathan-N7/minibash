@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 15:55:43 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/08 15:58:07 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/27 15:48:05 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-typedef enum s_tk_type
+typedef enum e_tk_type
 {
 	WORD,
 	PIPE,
@@ -23,7 +23,7 @@ typedef enum s_tk_type
 	HEREDOC
 }	t_tk_type;
 
-typedef enum s_op
+typedef enum e_op
 {
 	exec,
 	pid

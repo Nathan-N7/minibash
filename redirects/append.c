@@ -35,7 +35,7 @@ void new_file_append(char *pathname)
 	close(fd);
 }
 
-void handle_append(t_redirect *redir, char **envp)
+void handle_append(t_redirect *redir, int *error_flag, char **envp)
 {
     char    *fname;
     char    *pathname;
