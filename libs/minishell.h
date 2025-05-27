@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 16:07:55 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/27 16:35:09 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:11:50 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int         ft_echo(char **arg);
 int         ft_cd(char *path);
 int         builtin_father(t_command *cmd);
 int         isdirectory(const char *pathname);
-void        handle_heredoc(t_redirect *redir, int *error_flag, char **envp);
+void        handle_heredoc(t_redirect *redir, char **envp);
 void        handle_append(t_redirect *redir, int *error_flag, char **envp);
 void        handle_redin(t_redirect *redir, int *error_flag, char **envp);
 char        *create_pathname(const char *filename, char **envp);

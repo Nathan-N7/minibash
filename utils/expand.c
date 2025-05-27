@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 10:48:05 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/08 12:31:05 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:29:46 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	process_char(t_expand *exp)
 	else if (exp->src[exp->idx->i] == '\"')
 		handle_double_quote(exp);
 	else if (exp->src[exp->idx->i] == '$'
-		&& ft_isalnum(exp->src[exp->idx->i + 1]))
+		&& (ft_isalnum(exp->src[exp->idx->i + 1]) 
+		|| exp->src[exp->idx->i + 1] == '_'))
 		handle_variable(exp);
 	else
 		exp->buffer[exp->idx->j++] = exp->src[exp->idx->i++];

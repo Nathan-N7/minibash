@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 11:27:51 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/20 16:23:58 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:06:23 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,7 @@ void	my_pipe(t_command *cmd, char **envp)
 			father(&in_fd, fd, cmd);
 		cmd = cmd->next;
 	}
-	while (wait(NULL) > 0)
-		;
+	waitpid(pid, NULL, 0); 
 }
 /*[cmd1] ---stdout---> [pipe1] ---stdin---> [cmd2] ---stdout---> [pipe2] ---stdin---> [cmd3]
           	(fd[1])              (fd[0])         	 (fd[1])                fd[0])

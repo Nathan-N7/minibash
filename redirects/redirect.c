@@ -20,8 +20,10 @@ int handle_redirects(t_command *cmd, char **envp)
 		else if (r->type == REDIR_IN)
 			handle_redin(r, &error_flag, envp);
 		else if (r->type == HEREDOC)
-			handle_heredoc(r, &error_flag, envp);
+			handle_heredoc(r, envp);
 	}
-	return 0;
+	if (error_flag == TRUE)
+		return (-1);
+	return (0);
 }
 

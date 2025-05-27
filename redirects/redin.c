@@ -18,12 +18,21 @@ void execute_redin(char *pathname, int *error_flag)
 {
     int fd;
 
-	if (access(pathname, R_OK) == 0)
-		fd = open(pathname, O_RDONLY);
+	if (access(pathname, F_OK) == 0)
+	{
+		if (access(pathname, R_OK) == 0)
+			fd = open(pathname, O_RDONLY);
+		else
+		{
+			my_printf_fd("minishell: %s: Permission Denied\n", 2, pathname);
+			*error_flag = TRUE;
+			return ;
+		}
+	}
 	else
 	{
-		my_printf_fd("minishell: %s: Permission Denied\n", 2, pathname);
-		*error_flag = TRUE;
+		my_printf_fd("minishell: %s: No such file or directory\n", 2 ,pathname);
+		return;
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
@@ -38,6 +47,6 @@ void handle_redin(t_redirect *redir, int *error_flag, char **envp)
     pathname = create_pathname(fname, envp);
 	if (!pathname)
 		return ;
-	execute_redin(pathname);
+	execute_redin(pathname, error_flag);
 	free(pathname);
 }
