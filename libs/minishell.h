@@ -51,6 +51,7 @@ void        ft_env(t_envp *env);
 int         ft_echo(char **arg);
 int         ft_cd(char *path);
 void        ft_export(char **args, t_envp *env);
+void        ft_unset(char **args, t_envp *env);
 int         builtin_father(t_command *cmd);
 int         isdirectory(const char *pathname);
 void        handle_heredoc(t_redirect *redir);

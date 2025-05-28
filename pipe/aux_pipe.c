@@ -51,6 +51,8 @@ void	execute_builtin(t_envp *env, t_command *cmd)
 		ft_cd(cmd->args[1]);
 	else if (ft_strcmp(cmd->args[0], "export") == 0)
 		ft_export(cmd->args, env);
+	else if (ft_strcmp(cmd->args[0], "unset") == 0)
+		ft_unset(cmd->args, env);
 	else
 		printf("fudeu tudo\n");
 }

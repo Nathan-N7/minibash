@@ -2,7 +2,7 @@
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
-int get_index(char **envp, char *key)
+static int get_index(char **envp, char *key)
 {
     int i;
     int len;

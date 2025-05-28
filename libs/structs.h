@@ -71,6 +71,7 @@ typedef struct s_token
 typedef struct s_envp
 {
 	char	**envp;
-}	t_envp;
+	int		last_status;
+}	t_env
 
 #endif
