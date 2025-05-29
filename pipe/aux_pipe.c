@@ -42,17 +42,17 @@ int	is_builtin(t_command *cmd)
 int	execute_builtin(t_envp *env, t_command *cmd)
 {
 	if (ft_strcmp(cmd->args[0], "env") == 0)
-		ft_env(env);
+		return (ft_env(env));
 	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
-		ft_pwd();
+		return (ft_pwd());
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)
-		ft_echo(cmd->args);
+		return (ft_echo(cmd->args));
 	else if (ft_strcmp(cmd->args[0], "cd") == 0)
-		ft_cd(cmd->args[1]);
+		return (ft_cd(cmd->args[1]));
 	else if (ft_strcmp(cmd->args[0], "export") == 0)
-		ft_export(cmd->args, env);
+		return (ft_export(cmd->args, env));
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
-		ft_unset(cmd->args, env);
+		return (ft_unset(cmd->args, env));
 	else
 		return (1);
 }

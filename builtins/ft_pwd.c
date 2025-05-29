@@ -2,7 +2,7 @@
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
-void    ft_pwd()
+int    ft_pwd()
 {
     char    *pwd;
 
