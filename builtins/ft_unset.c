@@ -12,7 +12,7 @@ static int get_index(char **envp, char *key)
         len++;
     i = -1;
     while (envp[++i])
-        if(ft_strncmp(envp[i], key, len) == 0 && envp[i][len == '='])
+        if(ft_strncmp(envp[i], key, len) == 0 && envp[i][len] == '=')
             return (i);
     return (-1);
 }
@@ -38,7 +38,10 @@ char    **removed_var(char  **envp, char *var)
     while (envp[++i])
     {
         if (i == idx)
-            free(envp[i++]);
+        {
+            free(envp[i]);
+            continue ;
+        }
         new_env[j++] = envp[i];
     }
     new_env[j] = NULL;
@@ -46,12 +49,41 @@ char    **removed_var(char  **envp, char *var)
     return (new_env);
 }
 
-void    ft_unset(char **args, t_envp *env)
+int verify_var_unset(char *str)
 {
     int i;
 
+    if (!str || !str[0])
+        return (0);
+    if (!ft_isalpha(str[0]) && str[0] != '_')
+        return (0);
+    i = 1;
+    while (str[i])
+    {
+        if (!ft_isalnum(str[i]) && str[i] != '_')
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+int ft_unset(char **args, t_envp *env)
+{
+    int i;
+    int rtrn;
+
     i = -1;
+    rtrn = 0;
     while (args[++i])
+    {
+        if (!verify_var_unset)
+        {
+            printf("unset: `%s`: not a valid identifier\n", args[i]);
+            rtrn = 1;
+            continue;
+        }
         env->envp = removed_var(env->envp, args[i]);
+    }
+    return (rtrn);
 }
 

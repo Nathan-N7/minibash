@@ -60,6 +60,6 @@ void        handle_redin(t_redirect *redir, char **envp);
 char        *create_pathname(const char *filename, char **envp);
 int         handle_redirects(t_command *cmd, char **envp);
 void        handle_redout(t_redirect *redir, char **envp);
-void	    execute_builtin(t_envp *env, t_command *cmd);
+int	        execute_builtin(t_envp *env, t_command *cmd);
 
 #endif

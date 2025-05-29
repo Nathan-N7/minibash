@@ -88,6 +88,7 @@ void	my_pipe(t_command *cmd, t_envp *env)
 {
 	int		fd[2];
 	int		in_fd;
+	int		status;
 	pid_t	pid;
 
 	in_fd = 0;
@@ -97,7 +98,7 @@ void	my_pipe(t_command *cmd, t_envp *env)
 	{
 		if (builtin_father(cmd) && !cmd->next)
 		{
-			execute_builtin(env, cmd);
+			env->last_stats = execute_builtin(env, cmd);
 			break ;
 		}
 		if (cmd->next && pipe(fd) == -1)
@@ -114,8 +115,13 @@ void	my_pipe(t_command *cmd, t_envp *env)
 			father(&in_fd, fd, cmd);
 		cmd = cmd->next;
 	}
-	while (wait(NULL) > 0)
-		;
+	while (waitpid(-1, &status, 0) > 0)
+	{
+		if (WIFEXITED(status))
+			env->last_stats = WEXITSTATUS(status);
+		else
+			env->last_stats = 1;
+	}
 }
 /*[cmd1] ---stdout---> [pipe1] ---stdin---> [cmd2] ---stdout---> [pipe2] ---stdin---> [cmd3]
           	(fd[1])              (fd[0])         	 (fd[1])                fd[0])

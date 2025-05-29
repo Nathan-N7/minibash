@@ -6,7 +6,7 @@
 /*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 15:55:43 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/08 15:58:07 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/29 10:33:30 by natrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_token
 typedef struct s_envp
 {
 	char	**envp;
-	int		last_status;
-}	t_env
+	int		last_stats;
+}	t_envp;
 
 #endif

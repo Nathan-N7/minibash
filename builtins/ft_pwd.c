@@ -8,7 +8,8 @@ void    ft_pwd()
 
     pwd = getcwd(NULL, 0);
     if (!pwd)
-        return ;
+        return (1);
     printf("%s\n", pwd);
     free(pwd);
+    return (0);
 }

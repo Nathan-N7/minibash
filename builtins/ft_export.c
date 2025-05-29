@@ -12,7 +12,7 @@ static int get_index(char **envp, char *key)
         len++;
     i = -1;
     while (envp[++i])
-        if(ft_strncmp(envp[i], key, len) == 0 && envp[i][len == '='])
+        if(ft_strncmp(envp[i], key, len) == 0 && envp[i][len] == '=')
             return (i);
     return (-1);
 }
@@ -44,18 +44,50 @@ char    **new_envp(char **envp, char *arg)
     return (envp_new);
 }
 
-void    ft_export(char **args, t_envp *env)
+int verify_var(char *str)
 {
     int i;
+
+    i = 0;
+    if (!str || !str[0])
+        return (0);
+    if (!ft_isalpha(str[0]) && str[0] != '_')
+        return (0);
+    while (str[i] && str[i] != '=')
+    {
+        if (!ft_isalnum(str[i]) && str[i] != '_')
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+int    ft_export(char **args, t_envp *env)
+{
+    int     i;
+    char    **tmp;
 
     i = -1;
     if (!args[1])
     {
         while (env->envp[++i])
             printf("declare -x %s\n", env->envp[i]);
-        return ;
+        return (0);
     }
     while (args[++i])
+    {
+        if (!verify_var(args[i]))
+        {
+            printf("export: `%s`: not a valid identifier\n", args[i]);
+            return (1);
+        }
         if (ft_strchr(args[i], '='))
-            env->envp = new_envp(env->envp, args[i]);
+        {
+            tmp = new_envp(env->envp, args[i]);
+            if (!tmp)
+                return (1);
+            env->envp = tmp;
+        }
+    }
+    return (0);
 }

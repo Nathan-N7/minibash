@@ -39,7 +39,7 @@ int	is_builtin(t_command *cmd)
 	return (0);
 }
 
-void	execute_builtin(t_envp *env, t_command *cmd)
+int	execute_builtin(t_envp *env, t_command *cmd)
 {
 	if (ft_strcmp(cmd->args[0], "env") == 0)
 		ft_env(env);
@@ -54,7 +54,7 @@ void	execute_builtin(t_envp *env, t_command *cmd)
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
 		ft_unset(cmd->args, env);
 	else
-		printf("fudeu tudo\n");
+		return (1);
 }
 
 void	error_pipe(char *join, t_op	op)
