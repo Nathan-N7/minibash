@@ -75,15 +75,7 @@ int ft_unset(char **args, t_envp *env)
     i = -1;
     rtrn = 0;
     while (args[++i])
-    {
-        if (!verify_var_unset(args[i]))
-        {
-            printf("unset: `%s`: not a valid identifier\n", args[i]);
-            rtrn = 1;
-            continue;
-        }
         env->envp = removed_var(env->envp, args[i]);
-    }
-    return (rtrn);
+    return (0);
 }
 

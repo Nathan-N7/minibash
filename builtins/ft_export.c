@@ -65,9 +65,11 @@ int verify_var(char *str)
 int    ft_export(char **args, t_envp *env)
 {
     int     i;
+    int     rtrn;
     char    **tmp;
 
     i = -1;
+    rtrn = 0;
     if (!args[1])
     {
         while (env->envp[++i])
@@ -79,7 +81,8 @@ int    ft_export(char **args, t_envp *env)
         if (!verify_var(args[i]))
         {
             printf("export: `%s`: not a valid identifier\n", args[i]);
-            return (1);
+            rtrn = 1;
+            continue ;
         }
         if (ft_strchr(args[i], '='))
         {
@@ -89,5 +92,5 @@ int    ft_export(char **args, t_envp *env)
             env->envp = tmp;
         }
     }
-    return (0);
+    return (rtrn);
 }
