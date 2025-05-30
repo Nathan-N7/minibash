@@ -1,18 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 12:17:24 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/18 00:51:25 by lbarreto         ###   ########.fr       */
+/*   Created: 2024/10/17 13:44:39 by lbarreto          #+#    #+#             */
+/*   Updated: 2025/05/27 16:04:32 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libs/ft_printf.h"
 
-int	ft_putstr_fd(char *s, int fd)
+int	ft_putnbr_base(unsigned int n, char *base)
 {
-	return (write(fd, s, ft_strlen(s)));
+	unsigned int	base_size;
+	int				number_size;
+
+	base_size = 0;
+	number_size = 0;
+	while (base[base_size])
+		base_size++;
+	if (n >= base_size)
+	{
+		number_size += ft_putnbr_base(n / base_size, base);
+		number_size += ft_putnbr_base(n % base_size, base);
+	}
+	else
+		number_size += write(1, base + n, 1);
+	return (number_size);
 }
