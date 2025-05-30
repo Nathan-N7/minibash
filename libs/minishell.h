@@ -33,7 +33,8 @@
 # include "ft_printf.h"
 # include "../my_lib/libft.h"
 
-t_command	*parsing(char *input, char **envp);
+char        **clone_env(char **envp);
+t_command	*parsing(char *input, t_envp *env);
 t_token		*tokenize(char *input);
 int			ft_isspace(char c);
 char		*strip_aspas(char *str);
@@ -47,13 +48,15 @@ int			handle_pipe(t_command **cmd, int *count);
 void		free_commands(t_command *cmd);
 char		*get_value(char *name, char **envp);
 char		*expand_var(char *v, char **envp);
-void        my_pipe(t_command *cmd, char **envp);
+void	    my_pipe(t_command *cmd, t_envp *env);
 int         is_builtin(t_command *cmd);
 void	    error_pipe(char *join, t_op	op);
-void        ft_pwd();
-void        ft_env(char **envp);
+int         ft_pwd();
+int         ft_env(t_envp *env);
 int         ft_echo(char **arg);
 int         ft_cd(char *path);
+int         ft_export(char **args, t_envp *env);
+int         ft_unset(char **args, t_envp *env);
 int         builtin_father(t_command *cmd);
 int         isdirectory(const char *pathname);
 void        handle_heredoc(t_redirect *redir, char **envp);
@@ -61,7 +64,8 @@ void        handle_append(t_redirect *redir, int *error_flag, char **envp);
 void        handle_redin(t_redirect *redir, int *error_flag, char **envp);
 char        *create_pathname(const char *filename, char **envp);
 int         handle_redirects(t_command *cmd, char **envp);
+
 void        handle_redout(t_redirect *redir, int *error_flag, char **envp);
-void        execute_builtin(char **envp, t_command *cmd);
+int	        execute_builtin(t_envp *env, t_command *cmd);
 
 #endif

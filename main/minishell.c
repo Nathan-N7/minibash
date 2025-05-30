@@ -32,11 +32,13 @@ void	set_sig(void)
 int	main(int ac, char **av, char **envp)
 {
 	char		*input;
+	t_envp		env;
 	t_command	*root;
 
 	(void)av;
 	if (ac != 1)
 		return (write(2, "\033[1;31m🚨 Init error \033[0m\n", 29), 0);
+	env.envp = clone_env(envp);
 	while (1)
 	{
 		set_sig();
@@ -48,9 +50,9 @@ int	main(int ac, char **av, char **envp)
 		}
 		if (*input)
 			add_history(input);
-		root = parsing(input, envp);
+		root = parsing(input, &env);
 		if (root)
-			my_pipe(root, envp);
+			my_pipe(root, &env);
 		if (root)
 			free_commands(root);
 		free (input);

@@ -22,6 +22,26 @@ int	ft_isspace(char c)
 	return (0);
 }
 
+char **clone_env(char **envp)
+{
+    int i = 0;
+    char **copy;
+
+    while (envp[i])
+        i++;
+    copy = malloc(sizeof(char *) * (i + 1));
+    if (!copy)
+        return (NULL);
+    i = 0;
+    while (envp[i])
+    {
+        copy[i] = ft_strdup(envp[i]);
+        i++;
+    }
+    copy[i] = NULL;
+    return (copy);
+}
+
 char	*strip_aspas(char *str)
 {
 	int		i;

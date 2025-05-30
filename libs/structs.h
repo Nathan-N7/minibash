@@ -40,6 +40,7 @@ typedef struct s_command
 	char				**args;
 	t_redirect			*redirects;
 	int					redirect_count;
+	int					in_fd;
 	struct s_command	*next;
 }	t_command;
 
@@ -69,9 +70,8 @@ typedef struct s_token
 
 typedef struct s_envp
 {
-	char			*key;
-	char			*value;
-	struct	s_envp	*next;
+	char	**envp;
+	int		last_stats;
 }	t_envp;
 
 #endif

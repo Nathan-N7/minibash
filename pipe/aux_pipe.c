@@ -39,18 +39,22 @@ int	is_builtin(t_command *cmd)
 	return (0);
 }
 
-void	execute_builtin(char **envp, t_command *cmd)
+int	execute_builtin(t_envp *env, t_command *cmd)
 {
-	if(ft_strcmp(cmd->args[0], "env") == 0)
-		ft_env(envp);
+	if (ft_strcmp(cmd->args[0], "env") == 0)
+		return (ft_env(env));
 	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
-		ft_pwd();
+		return (ft_pwd());
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)
-		ft_echo(cmd->args);
+		return (ft_echo(cmd->args));
 	else if (ft_strcmp(cmd->args[0], "cd") == 0)
-		ft_cd(cmd->args[1]);
+		return (ft_cd(cmd->args[1]));
+	else if (ft_strcmp(cmd->args[0], "export") == 0)
+		return (ft_export(cmd->args, env));
+	else if (ft_strcmp(cmd->args[0], "unset") == 0)
+		return (ft_unset(cmd->args, env));
 	else
-		printf("fudeu tudo");
+		return (1);
 }
 
 void	error_pipe(char *join, t_op	op)
