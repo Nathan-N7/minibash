@@ -2,10 +2,32 @@
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
-int ft_cd(char *path)
+void    set_path(char **envp, char *path, char *name)
+{
+    int i;
+    int k;
+    char    *tmp;
+    char    *new_var;
+
+    k = 0;
+    i = get_index(envp, name);
+    if (i == -1)
+        return ;
+    free(envp[i]);
+    tmp = ft_strjoin(name, "=");
+    new_var = ft_strjoin(tmp, path);
+    free (tmp);
+    envp[i] = new_var;
+}
+
+int ft_cd(char *path, t_envp *env)
 {
     char    *home;
+    char    *path_old;
+    char    *path_pwd;
 
+    (void)env;
+    path_old = getcwd(NULL, 0);
     if (!path || ft_strcmp(path, "~") == 0)
     {
         home = getenv("HOME");
@@ -14,6 +36,9 @@ int ft_cd(char *path)
         path = home;
     }
     if (chdir(path) != 0)
-        return (perror("cd"), 1);
-    return (0);
+        return (free(path_old), perror("cd"), 1);
+    path_pwd = getcwd(NULL, 0);
+    set_path(env->envp, path_old, "OLDPWD");
+    set_path(env->envp, path_pwd, "PWD");
+    return (free(path_old), 0);
 }

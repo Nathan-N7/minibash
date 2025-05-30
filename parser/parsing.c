@@ -85,10 +85,10 @@ t_command	*new_command(t_command **head)
 	return (new);
 }
 
-int	parse_token2(t_command **cmd, t_token **tok, int *c, char **envp)
+int	parse_token2(t_command **cmd, t_token **tok, int *c, t_envp *env)
 {
 	if ((*tok)->type == WORD)
-		handle_word(*cmd, *tok, c, envp);
+		handle_word(*cmd, *tok, c, env);
 	else if ((*tok)->type == REDIR_IN || (*tok)->type == REDIR_OUT
 		|| (*tok)->type == APPEND || (*tok)->type == HEREDOC)
 	{
@@ -103,7 +103,7 @@ int	parse_token2(t_command **cmd, t_token **tok, int *c, char **envp)
 	return (1);
 }
 
-t_command	*parse_tokens(t_token *tokens, char **envp)
+t_command	*parse_tokens(t_token *tokens, t_envp *env)
 {
 	t_command	*head;
 	t_command	*current;
@@ -122,7 +122,7 @@ t_command	*parse_tokens(t_token *tokens, char **envp)
 			if (!current)
 				return (free_commands(head), NULL);
 		}
-		if (!parse_token2(&current, &tok, &count, envp))
+		if (!parse_token2(&current, &tok, &count, env))
 			return (free_commands(head), NULL);
 		tok = tok->next;
 	}
@@ -137,10 +137,8 @@ t_command	*parsing(char *input, t_envp *env)
 	char		*r;
 	t_token		*tokens;
 	t_command	*commands;
-	char		**envp;
 
 	r = ft_strtrim(input, " \t\n\v\r\f");
-	envp = env->envp;
 	if (!r || r[0] == '\0')
 		return (free(r), NULL);
 	if (!verify_aspas(r))
@@ -150,7 +148,7 @@ t_command	*parsing(char *input, t_envp *env)
 		exit (0);
 	}
 	tokens = tokenize(r);
-	commands = parse_tokens(tokens, envp);
+	commands = parse_tokens(tokens, env);
 	/*if (commands)
 		print_commands(commands);
 	print_tokens(tokens);*/

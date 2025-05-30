@@ -14,7 +14,7 @@
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
-void	execute_cmd(t_command *cmd, char **envp)
+void	execute_cmd(t_command *cmd, t_envp *env)
 {
 	char	*expand;
 	char	**path;
@@ -23,7 +23,7 @@ void	execute_cmd(t_command *cmd, char **envp)
 	char	*tmp;
 
 	i = 0;
-	expand = expand_var("$PATH", envp);
+	expand = expand_var("$PATH", env);
 	path = ft_split(expand, ':');
 	while (path[i])
 	{
@@ -33,7 +33,7 @@ void	execute_cmd(t_command *cmd, char **envp)
 		free(tmp);
 		if (access(join, F_OK && X_OK) == 0)
 		{
-			if (execve(join, cmd->args, envp) < 0)
+			if (execve(join, cmd->args, env->envp) < 0)
 				error_pipe(join, exec);
 		}
 		free(join);
@@ -64,7 +64,7 @@ void	son(int in_fd, int fd[2], t_command *cmd, t_envp *env)
 		if (is_builtin(cmd))
 			execute_builtin(env, cmd);
 		else
-			execute_cmd(cmd, env->envp);
+			execute_cmd(cmd, env);
 	}
 	free_commands(cmd);
 	exit (0);

@@ -55,7 +55,6 @@ typedef struct s_indexvar
 typedef struct s_expand
 {
 	char		*src;
-	char		**envp;
 	t_indexvar	*idx;
 	char		*buffer;
 	char		*varname;

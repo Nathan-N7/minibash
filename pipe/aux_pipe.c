@@ -48,7 +48,7 @@ int	execute_builtin(t_envp *env, t_command *cmd)
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)
 		return (ft_echo(cmd->args));
 	else if (ft_strcmp(cmd->args[0], "cd") == 0)
-		return (ft_cd(cmd->args[1]));
+		return (ft_cd(cmd->args[1], env));
 	else if (ft_strcmp(cmd->args[0], "export") == 0)
 		return (ft_export(cmd->args, env));
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)

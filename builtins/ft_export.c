@@ -2,21 +2,6 @@
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
-static int get_index(char **envp, char *key)
-{
-    int i;
-    int len;
-
-    len = 0;
-    while (key[len] && key[len] != '=')
-        len++;
-    i = -1;
-    while (envp[++i])
-        if(ft_strncmp(envp[i], key, len) == 0 && envp[i][len] == '=')
-            return (i);
-    return (-1);
-}
-
 char    **new_envp(char **envp, char *arg)
 {
     int     i;
