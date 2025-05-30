@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 11:27:51 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/20 16:23:58 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:06:23 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	my_pipe(t_command *cmd, t_envp *env)
 			father(&in_fd, fd, cmd);
 		cmd = cmd->next;
 	}
+
 	while (waitpid(-1, &status, 0) > 0)
 	{
 		if (WIFEXITED(status))

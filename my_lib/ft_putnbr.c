@@ -1,45 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 18:54:17 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/05/22 15:58:18 by lbarreto         ###   ########.fr       */
+/*   Created: 2024/10/21 15:00:49 by lbarreto          #+#    #+#             */
+/*   Updated: 2025/05/27 16:04:34 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libs/ft_printf.h"
 
-int	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr(int n)
 {
-	char	c;
-	int		count;
+	int		number_size;
+	char	number;
 
-	count = 0;
+	number_size = 0;
 	if (n == -2147483648)
-		return (write(fd, "-2147483648", 11));
+		return (write(1, "-2147483648", 11));
 	if (n < 0)
 	{
-		count += write(fd, "-", 1);
+		number_size += write (1, "-", 1);
 		n = -n;
 	}
 	if (n > 9)
 	{
-		count += ft_putnbr_fd(n / 10, fd);
-		count += ft_putnbr_fd(n % 10, fd);
+		number_size += ft_putnbr(n / 10);
+		number_size += ft_putnbr(n % 10);
 	}
 	else
 	{
-		c = n + '0';
-		count += write(fd, &c, 1);
+		number = n + '0';
+		number_size += write(1, &number, 1);
 	}
-	return (count);
+	return (number_size);
 }
-/*
-int	main(void)
-{
-	ft_putnbr_fd(0, 1);
-}
-*/

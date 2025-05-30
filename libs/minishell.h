@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 16:07:55 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/08 16:09:11 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:11:50 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 # define MAX_ARGS 512
 # define MAX_REDIRS 32
+# define TRUE 1
+# define FALSE 0
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -27,6 +30,8 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include "structs.h"
+# include "ft_printf.h"
+# include "../my_lib/libft.h"
 
 char        **clone_env(char **envp);
 t_command	*parsing(char *input, t_envp *env);
@@ -54,12 +59,13 @@ int         ft_export(char **args, t_envp *env);
 int         ft_unset(char **args, t_envp *env);
 int         builtin_father(t_command *cmd);
 int         isdirectory(const char *pathname);
-void        handle_heredoc(t_redirect *redir);
-void        handle_append(t_redirect *redir, char **envp);
-void        handle_redin(t_redirect *redir, char **envp);
+void        handle_heredoc(t_redirect *redir, char **envp);
+void        handle_append(t_redirect *redir, int *error_flag, char **envp);
+void        handle_redin(t_redirect *redir, int *error_flag, char **envp);
 char        *create_pathname(const char *filename, char **envp);
 int         handle_redirects(t_command *cmd, char **envp);
-void        handle_redout(t_redirect *redir, char **envp);
+
+void        handle_redout(t_redirect *redir, int *error_flag, char **envp);
 int	        execute_builtin(t_envp *env, t_command *cmd);
 
 #endif

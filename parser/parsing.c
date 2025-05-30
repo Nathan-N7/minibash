@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:55:30 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/08 15:24:59 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:16:44 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ t_command	*parse_tokens(t_token *tokens, char **envp)
 		tok = tok->next;
 	}
 	if (!current || (current->redirect_count == 0 && !current->args[0]))
-		return (free_commands(head),
-			write(2, "\033[1;31m🚨 Syntax Error: tokenize\033[0m\n", 39), NULL);
+		return (free_commands(head), 
+	write(2, "\033[1;31m🚨 Syntax Error: tokenize\033[0m\n", 39), NULL);
 	return (current->args[count] = NULL, head);
 }
 
@@ -146,7 +146,7 @@ t_command	*parsing(char *input, t_envp *env)
 	if (!verify_aspas(r))
 	{
 		free(r);
-		write(2, "\033[1;31m🚨 Syntax Error: Aspas\033[0m\n", 36);
+		write(2, "\033[1;31m🚨 Syntax Error: Aspas abertas\033[0m\n", 36);
 		exit (0);
 	}
 	tokens = tokenize(r);
