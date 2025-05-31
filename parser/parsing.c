@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:55:30 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/08 15:24:59 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:16:44 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ t_command	*new_command(t_command **head)
 	return (new);
 }
 
-int	parse_token2(t_command **cmd, t_token **tok, int *c, char **envp)
+int	parse_token2(t_command **cmd, t_token **tok, int *c, t_envp *env)
 {
 	if ((*tok)->type == WORD)
-		handle_word(*cmd, *tok, c, envp);
+		handle_word(*cmd, *tok, c, env);
 	else if ((*tok)->type == REDIR_IN || (*tok)->type == REDIR_OUT
 		|| (*tok)->type == APPEND || (*tok)->type == HEREDOC)
 	{
@@ -103,7 +103,7 @@ int	parse_token2(t_command **cmd, t_token **tok, int *c, char **envp)
 	return (1);
 }
 
-t_command	*parse_tokens(t_token *tokens, char **envp)
+t_command	*parse_tokens(t_token *tokens, t_envp *env)
 {
 	t_command	*head;
 	t_command	*current;
@@ -122,17 +122,17 @@ t_command	*parse_tokens(t_token *tokens, char **envp)
 			if (!current)
 				return (free_commands(head), NULL);
 		}
-		if (!parse_token2(&current, &tok, &count, envp))
+		if (!parse_token2(&current, &tok, &count, env))
 			return (free_commands(head), NULL);
 		tok = tok->next;
 	}
 	if (!current || (current->redirect_count == 0 && !current->args[0]))
-		return (free_commands(head),
-			write(2, "\033[1;31m🚨 Syntax Error: tokenize\033[0m\n", 39), NULL);
+		return (free_commands(head), 
+	write(2, "\033[1;31m🚨 Syntax Error: tokenize\033[0m\n", 39), NULL);
 	return (current->args[count] = NULL, head);
 }
 
-t_command	*parsing(char *input, char **envp)
+t_command	*parsing(char *input, t_envp *env)
 {
 	char		*r;
 	t_token		*tokens;
@@ -144,11 +144,11 @@ t_command	*parsing(char *input, char **envp)
 	if (!verify_aspas(r))
 	{
 		free(r);
-		write(2, "\033[1;31m🚨 Syntax Error: Aspas\033[0m\n", 36);
+		write(2, "\033[1;31m🚨 Syntax Error: Aspas abertas\033[0m\n", 36);
 		exit (0);
 	}
 	tokens = tokenize(r);
-	commands = parse_tokens(tokens, envp);
+	commands = parse_tokens(tokens, env);
 	/*if (commands)
 		print_commands(commands);
 	print_tokens(tokens);*/

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 15:55:43 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/08 15:58:07 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/27 15:48:05 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-typedef enum s_tk_type
+typedef enum e_tk_type
 {
 	WORD,
 	PIPE,
@@ -23,7 +23,7 @@ typedef enum s_tk_type
 	HEREDOC
 }	t_tk_type;
 
-typedef enum s_op
+typedef enum e_op
 {
 	exec,
 	pid
@@ -40,22 +40,21 @@ typedef struct s_command
 	char				**args;
 	t_redirect			*redirects;
 	int					redirect_count;
+	int					in_fd;
 	struct s_command	*next;
 }	t_command;
 
 typedef struct s_indexvar
 {
-	int	i;
-	int	k;
-	int	j;
-	int	m;
+	int	src;
+	int	val;
+	int	buff;
+	int	var;
 }	t_indexvar;
 
 typedef struct s_expand
 {
 	char		*src;
-	char		**envp;
-	t_indexvar	*idx;
 	char		*buffer;
 	char		*varname;
 }	t_expand;
@@ -69,9 +68,8 @@ typedef struct s_token
 
 typedef struct s_envp
 {
-	char			*key;
-	char			*value;
-	struct	s_envp	*next;
+	char	**envp;
+	int		last_stats;
 }	t_envp;
 
 #endif

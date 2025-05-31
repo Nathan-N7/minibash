@@ -16,6 +16,8 @@ SOURCES = \
 	builtins/ft_pwd.c \
 	builtins/ft_echo.c \
 	builtins/ft_cd.c \
+	builtins/ft_export.c \
+	builtins/ft_unset.c \
 	redirects/pathname_utils.c \
 	redirects/redirect.c \
 	redirects/redout.c \
@@ -38,6 +40,8 @@ OBJECTS = \
 	objects/ft_pwd.o \
 	objects/ft_echo.o \
 	objects/ft_cd.o \
+	objects/ft_export.o \
+	objects/ft_unset.o \
 	objects/pathname_utils.o \
 	objects/redirect.o \
 	objects/redout.o \
@@ -103,6 +107,15 @@ objects/ft_echo.o:
 objects/ft_cd.o:
 	@mkdir -p objects
 	@cc $(FLAGS) -c builtins/ft_cd.c -o objects/ft_cd.o
+
+objects/ft_export.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c builtins/ft_export.c -o objects/ft_export.o
+
+objects/ft_unset.o:
+	@mkdir -p objects
+	@cc $(FLAGS) -c builtins/ft_unset.c -o objects/ft_unset.o
+
 
 objects/pathname_utils.o:
 	@mkdir -p objects

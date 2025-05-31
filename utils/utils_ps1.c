@@ -20,11 +20,11 @@ int	print_error(char *msg)
 	return (0);
 }
 
-int	handle_word(t_command *cmd, t_token *tok, int *c, char **envp)
+int	handle_word(t_command *cmd, t_token *tok, int *c, t_envp *env)
 {
 	if (*c + 1 >= MAX_ARGS -1)
 		return (write(2, "\033[1;31m🚨 Error: too many arguments\033[0m\n", 39), 0);
-	cmd->args[*c] = expand_var(tok->value, envp);
+	cmd->args[*c] = expand_var(tok->value, env);
 	(*c)++;
 	return (1);
 }

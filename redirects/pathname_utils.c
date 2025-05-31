@@ -80,5 +80,5 @@ char *create_pathname(const char *filename, char **envp)
 	else if (filename[0] == '~')
 		return (home_pathname(filename, envp));
 	else
-		return relative_pathname(filename, envp);
+		return ft_strdup(filename);
 }

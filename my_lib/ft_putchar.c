@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 12:17:24 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/18 00:51:25 by lbarreto         ###   ########.fr       */
+/*   Created: 2024/10/17 13:38:18 by lbarreto          #+#    #+#             */
+/*   Updated: 2025/05/27 16:04:31 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libs/ft_printf.h"
 
-int	ft_putstr_fd(char *s, int fd)
+int	ft_putchar(char c)
 {
-	return (write(fd, s, ft_strlen(s)));
+	return (write(1, &c, 1));
 }

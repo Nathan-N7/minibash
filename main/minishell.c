@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 10:40:16 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/08 10:41:10 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/27 16:27:33 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ void	set_sig(void)
 int	main(int ac, char **av, char **envp)
 {
 	char		*input;
+	t_envp		env;
 	t_command	*root;
 
 	(void)av;
 	if (ac != 1)
 		return (write(2, "\033[1;31m🚨 Init error \033[0m\n", 29), 0);
+	env.envp = clone_env(envp);
+	env.last_stats = 0;
 	while (1)
 	{
 		set_sig();
@@ -48,13 +51,14 @@ int	main(int ac, char **av, char **envp)
 		}
 		if (*input)
 			add_history(input);
-		root = parsing(input, envp);
+		root = parsing(input, &env);
 		if (root)
-			my_pipe(root, envp);
+			my_pipe(root, &env);
 		if (root)
 			free_commands(root);
 		free (input);
 	}
+	free_env (env.envp);
 	rl_clear_history();
 	return (0);
 }

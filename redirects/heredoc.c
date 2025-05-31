@@ -2,31 +2,27 @@
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
-void handle_heredoc(t_redirect *redir)
+void handle_heredoc(t_redirect *redir, t_envp *env)
 {
     char    *rline;
     int     pipefd[2];
-    char    *limiter;
+	char	*e_rline;
 
-	limiter = redir->filename;
-	if (pipe(pipefd) < 0)
-	{
-		perror("pipe");
-		return ;
-	}
+	pipe(pipefd);
 	while (1)
 	{
 		rline = readline(">");
 		if (!rline)
 			break ;
-		if (!strcmp(rline, limiter))
+		if (!strcmp(rline, redir->filename))
 		{
 			free(rline);
 			break ;
 		}
-		write(pipefd[1], rline, strlen(rline));
-		write(pipefd[1], "\n", 1);
+		e_rline = expand_var(rline, env);
+		my_printf_fd("%s\n", pipefd[1], e_rline);
 		free(rline);
+		free(e_rline);
 	}
 	close(pipefd[1]);
 	dup2(pipefd[0], STDIN_FILENO);

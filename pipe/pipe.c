@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 11:27:51 by natrodri          #+#    #+#             */
-/*   Updated: 2025/05/20 16:23:58 by natrodri         ###   ########.fr       */
+/*   Updated: 2025/05/27 20:06:23 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
-void	execute_cmd(t_command *cmd, char **envp)
+void	execute_cmd(t_command *cmd, t_envp *env)
 {
 	char	*expand;
 	char	**path;
@@ -23,7 +23,7 @@ void	execute_cmd(t_command *cmd, char **envp)
 	char	*tmp;
 
 	i = 0;
-	expand = expand_var("$PATH", envp);
+	expand = expand_var("$PATH", env);
 	path = ft_split(expand, ':');
 	while (path[i])
 	{
@@ -33,7 +33,7 @@ void	execute_cmd(t_command *cmd, char **envp)
 		free(tmp);
 		if (access(join, F_OK && X_OK) == 0)
 		{
-			if (execve(join, cmd->args, envp) < 0)
+			if (execve(join, cmd->args, env->envp) < 0)
 				error_pipe(join, exec);
 		}
 		free(join);
@@ -43,7 +43,7 @@ void	execute_cmd(t_command *cmd, char **envp)
 	exit (1);
 }
 
-void	son(int in_fd, int fd[2], t_command *cmd, char **envp)
+void	son(int in_fd, int fd[2], t_command *cmd, t_envp *env)
 {
 	if (in_fd != 0)
 	{
@@ -57,14 +57,14 @@ void	son(int in_fd, int fd[2], t_command *cmd, char **envp)
 		close(fd[1]);
 	}
 	if (cmd->redirect_count > 0)
-		if (handle_redirects(cmd, envp) < 0)
+		if (handle_redirects(cmd, env) < 0)
 			exit (1);
 	if (cmd->args && cmd->args[0])
 	{
 		if (is_builtin(cmd))
-			execute_builtin(envp, cmd);
+			execute_builtin(env, cmd);
 		else
-			execute_cmd(cmd, envp);
+			execute_cmd(cmd, env);
 	}
 	free_commands(cmd);
 	exit (0);
@@ -84,10 +84,11 @@ void	father(int *in_fd, int fd[2], t_command *cmd)
 			close(fd[0]);
 }
 
-void	my_pipe(t_command *cmd, char **envp)
+void	my_pipe(t_command *cmd, t_envp *env)
 {
 	int		fd[2];
 	int		in_fd;
+	int		status;
 	pid_t	pid;
 
 	in_fd = 0;
@@ -97,7 +98,7 @@ void	my_pipe(t_command *cmd, char **envp)
 	{
 		if (builtin_father(cmd) && !cmd->next)
 		{
-			execute_builtin(envp, cmd);
+			env->last_stats = execute_builtin(env, cmd);
 			break ;
 		}
 		if (cmd->next && pipe(fd) == -1)
@@ -109,13 +110,19 @@ void	my_pipe(t_command *cmd, char **envp)
 		if (pid == -1)
 			error_pipe(NULL, pid);
 		if (pid == 0)
-			son(in_fd, fd, cmd, envp);
+			son(in_fd, fd, cmd, env);
 		else
 			father(&in_fd, fd, cmd);
 		cmd = cmd->next;
 	}
-	while (wait(NULL) > 0)
-		;
+
+	while (waitpid(-1, &status, 0) > 0)
+	{
+		if (WIFEXITED(status))
+			env->last_stats = WEXITSTATUS(status);
+		else
+			env->last_stats = 1;
+	}
 }
 /*[cmd1] ---stdout---> [pipe1] ---stdin---> [cmd2] ---stdout---> [pipe2] ---stdin---> [cmd3]
           	(fd[1])              (fd[0])         	 (fd[1])                fd[0])
