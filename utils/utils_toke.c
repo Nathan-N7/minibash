@@ -42,6 +42,11 @@ char **clone_env(char **envp)
     return (copy);
 }
 
+void	free_env()
+{
+	
+}
+
 char	*strip_aspas(char *str)
 {
 	int		i;

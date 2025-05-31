@@ -4,12 +4,10 @@
 
 void    set_path(char **envp, char *path, char *name)
 {
-    int i;
-    int k;
+    int     i;
     char    *tmp;
     char    *new_var;
 
-    k = 0;
     i = get_index(envp, name);
     if (i == -1)
         return ;

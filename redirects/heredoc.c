@@ -2,7 +2,7 @@
 #include "../my_lib/libft.h"
 #include "../libs/structs.h"
 
-void handle_heredoc(t_redirect *redir, char **envp)
+void handle_heredoc(t_redirect *redir, t_envp *env)
 {
     char    *rline;
     int     pipefd[2];
@@ -19,7 +19,7 @@ void handle_heredoc(t_redirect *redir, char **envp)
 			free(rline);
 			break ;
 		}
-		e_rline = expand_var(rline, envp);
+		e_rline = expand_var(rline, env);
 		my_printf_fd("%s\n", pipefd[1], e_rline);
 		free(rline);
 		free(e_rline);

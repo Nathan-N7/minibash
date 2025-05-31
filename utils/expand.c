@@ -71,11 +71,11 @@ void	process_char(t_expand *exp, t_envp *env)
 	if (exp->src[exp->idx->i] == '\'')
 		handle_single_quote(exp);
 	else if (exp->src[exp->idx->i] == '\"')
-		handle_double_quote(exp);
+		handle_double_quote(exp, env);
 	else if (exp->src[exp->idx->i] == '$'
 		&& (ft_isalnum(exp->src[exp->idx->i + 1]) 
 		|| exp->src[exp->idx->i + 1] == '_'))
-		handle_variable(exp);
+		handle_variable(exp, env);
 	else
 		exp->buffer[exp->idx->j++] = exp->src[exp->idx->i++];
 }

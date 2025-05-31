@@ -60,12 +60,11 @@ int         ft_export(char **args, t_envp *env);
 int         ft_unset(char **args, t_envp *env);
 int         builtin_father(t_command *cmd);
 int         isdirectory(const char *pathname);
-void        handle_heredoc(t_redirect *redir, char **envp);
+void        handle_heredoc(t_redirect *redir, t_envp *env);
 void        handle_append(t_redirect *redir, int *error_flag, char **envp);
 void        handle_redin(t_redirect *redir, int *error_flag, char **envp);
 char        *create_pathname(const char *filename, char **envp);
-int         handle_redirects(t_command *cmd, char **envp);
-
+int         handle_redirects(t_command *cmd, t_envp *env);
 void        handle_redout(t_redirect *redir, int *error_flag, char **envp);
 int	        execute_builtin(t_envp *env, t_command *cmd);
 
