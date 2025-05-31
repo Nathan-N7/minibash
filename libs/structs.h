@@ -46,16 +46,15 @@ typedef struct s_command
 
 typedef struct s_indexvar
 {
-	int	i;
-	int	k;
-	int	j;
-	int	m;
+	int	src;
+	int	val;
+	int	buff;
+	int	var;
 }	t_indexvar;
 
 typedef struct s_expand
 {
 	char		*src;
-	t_indexvar	*idx;
 	char		*buffer;
 	char		*varname;
 }	t_expand;
