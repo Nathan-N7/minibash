@@ -79,6 +79,7 @@ void    print_order(t_envp *env)
         printf("declare -x %s\n", order[k]);
         k++;
     }
+    free_env (order);
 }
 
 int    ft_export(char **args, t_envp *env)

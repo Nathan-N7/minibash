@@ -58,6 +58,7 @@ int	main(int ac, char **av, char **envp)
 			free_commands(root);
 		free (input);
 	}
+	free_env (env.envp);
 	rl_clear_history();
 	return (0);
 }
